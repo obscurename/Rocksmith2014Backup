@@ -28,3 +28,9 @@ A: If you made an insane setup for Rocksmith 2014 that is identical to the way S
 
 Q: Will it work for (future update)?  
 A: I don't know, if it stops working for me I'll update it.
+
+# Annoying "The catch"
+
+There's not catch to using this application, it just copys the save data to a folder, and saves 3 different versions (1 being oldest, 3 being latest.) If your game corrupts, it is a CDLC fault, not this program's. I cannot guarrantee a backup will be corrupt-free (if you try to restart the game 3 times because you got annoyed, this will overwrite all 3 backups with a corrupted backup.) but this program does try to prevent corruptions via backups.
+
+Of course, if your save files break or get corrupted (either from this program or from a CLDC), it is **not my fault**, as the source does not overwrite the original save file.
