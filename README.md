@@ -4,7 +4,7 @@ Backup Rocksmith 2014 Steam saves with this tool.
 It requires Steam & Rocksmith2014 for steam, but it does not run Rocksmith using Steam GameID, instead if runs Rocksmith2014 by the executable name. This application is made to be ran via steam.
 
 # Setup
-Setup requires the "Rocksmith2014.exe" name, so rename the original "Rocksmith2014.exe" to "Rocksmith.exe" or "Game.exe".
+Setup requires the "Rocksmith2014.exe" name, so; rename the original "Rocksmith2014.exe" to "Game.exe".
 
 Put the "Rocksmith2014.exe" in the releases page into the Rocksmith 2014 game directory
 
