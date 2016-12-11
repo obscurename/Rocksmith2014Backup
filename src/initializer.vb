@@ -33,7 +33,11 @@
         lblStatus.Text = "Latest slot is " & LatestSlot.ToString
 
         SaveDirectory = SteamDir & "/userdata/" & Steam3ID & "/221680/remote"
-        BackupDirectory = SteamDir & "/userdata/" & Steam3ID & "/221680/SaveBackup"
+
+        BackupDirectory = INI_File.GetString("Backup", "Directory", "Default")
+        If BackupDirectory = "Default" Then
+            BackupDirectory = SteamDir & "/userdata/" & Steam3ID & "/221680/SaveBackup"
+        End If
 
         lblStatus.Text = "Checking for backup folder."
         If Not System.IO.Directory.Exists(BackupDirectory) Then
@@ -47,31 +51,48 @@
 
         If LatestSlot = 3 Then
             lblStatus.Text = "3 is latest, moving contents from slot 2 to 1."
-            System.IO.Directory.Delete(BackupDirectory & "/Slot1", True)
-            My.Computer.FileSystem.RenameDirectory(BackupDirectory & "/Slot2", "Slot1")
+            If System.IO.Directory.Exists(BackupDirectory & "/Slot1") Then
+                System.IO.Directory.Delete(BackupDirectory & "/Slot1", True)
+            End If
+            If System.IO.Directory.Exists(BackupDirectory & "/Slot2") Then
+                My.Computer.FileSystem.RenameDirectory(BackupDirectory & "/Slot2", "Slot1")
+            End If
 
             lblStatus.Text = "3 is latest, moving contents from slot 3 to 2."
-            My.Computer.FileSystem.RenameDirectory(BackupDirectory & "/Slot3", "Slot2")
-           
+            If System.IO.Directory.Exists(BackupDirectory & "/Slot2") Then
+                System.IO.Directory.Delete(BackupDirectory & "/Slot2", True)
+            End If
+            If System.IO.Directory.Exists(BackupDirectory & "/Slot3") Then
+                My.Computer.FileSystem.RenameDirectory(BackupDirectory & "/Slot3", "Slot2")
+            End If
+
             lblStatus.Text = "3 is latest, backing up to slot 3."
-            System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot3")
+            If System.IO.Directory.Exists(BackupDirectory & "/Slot3") Then
+                System.IO.Directory.Delete(BackupDirectory & "/Slot3", True)
+            End If
             My.Computer.FileSystem.CopyDirectory(SaveDirectory, BackupDirectory & "/Slot3")
 
             LatestSlot = 3
 
         ElseIf LatestSlot = 2 Then
             lblStatus.Text = "2 is latest, backing up to slot 3."
-            System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot3")
+            If Not System.IO.Directory.Exists(BackupDirectory & "/Slot3") Then
+                System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot3")
+            End If
             My.Computer.FileSystem.CopyDirectory(SaveDirectory, BackupDirectory & "/Slot3")
             LatestSlot = 3
         ElseIf LatestSlot = 1 Then
             lblStatus.Text = "1 is latest, backing up to slot 2."
-            System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot2")
+            If Not System.IO.Directory.Exists(BackupDirectory & "/Slot2") Then
+                System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot2")
+            End If
             My.Computer.FileSystem.CopyDirectory(SaveDirectory, BackupDirectory & "/Slot2")
             LatestSlot = 2
         Else
-            lblStatus.Text = "No latest, backing up to slot 3."
-            System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot1")
+            lblStatus.Text = "No latest, backing up to slot 1."
+            If Not System.IO.Directory.Exists(BackupDirectory & "/Slot1") Then
+                System.IO.Directory.CreateDirectory(BackupDirectory & "/Slot1")
+            End If
             My.Computer.FileSystem.CopyDirectory(SaveDirectory, BackupDirectory & "/Slot1")
             LatestSlot = 1
         End If

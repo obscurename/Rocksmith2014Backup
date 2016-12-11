@@ -136,7 +136,24 @@ Next, specify where steam is installed
 
 
 
+Finally, if you prefer a different Backup location, specify
+it here, otherwise leave it blank for default.
+
+
+
+
+
 Once you feel like you got everything setup, click Finish
 to finish setting up Rocksmith Backup.</value>
+  </data>
+  <metadata name="Helper.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="Label5.ToolTip" xml:space="preserve">
+    <value>Launches the padder form to let you change settings before launching.
+
+This is user-preference, if you want a form to show up before launching
+or if you're alright with the settings you can just not have it show at the
+launch.</value>
   </data>
 </root>
