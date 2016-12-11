@@ -17,10 +17,10 @@
         Else
             If INI_File.GetString("AppSettings", "ShowPadder", "False") = "True" Then
                 Main.Show()
-                Me.Close()
+                Me.Hide()
             Else
                 initializer.Show()
-                Me.Close()
+                Me.Hide()
             End If
         End If
     End Sub
@@ -89,14 +89,10 @@ Retry:
 
         If chkPadder.Checked Then
             INI_File.WriteString("AppSettings", "ShowPadder", "True")
-            Main.Show()
-            Me.Close()
-        Else
-            initializer.Show()
-            Me.Close()
         End If
 
-        
+        initializer.Show()
+        Me.Close()
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked

@@ -2,7 +2,9 @@
     Dim isReadOnly As Boolean = False
     Dim ConfigModified As Boolean = False
 
-    Dim Steam3ID As Integer
+    Dim INI_File As New IniFile(Application.StartupPath + "/config.ini")
+
+    Dim SteamID As Integer
     Dim SteamDir As String
     Dim BackupDir As String
 
@@ -35,7 +37,7 @@
                     ConfigModified = True
                     btnLaunch.Text = "Save config & Launch Rocksmith"
                 End If
-                Steam3ID = txtID.Text
+                SteamID = txtID.Text
             Case Windows.Forms.DialogResult.No
                 txtID.Clear()
         End Select
@@ -65,5 +67,28 @@
                 BackupDir = FBD.SelectedPath
                 txtBackupDir.Text = FBD.SelectedPath
         End Select
+    End Sub
+
+    Private Sub btnLaunch_Click(sender As Object, e As EventArgs) Handles btnLaunch.Click
+        If ConfigModified = True Then
+            If Not txtID.Text = Nothing Then
+                INI_File.WriteInteger("Steam3ID", "User", SteamID)
+            End If
+            If Not txtSteamDir.Text = Nothing Then
+                INI_File.WriteString("Steam", "Directory", SteamDir)
+            End If
+            If Not txtBackupDir.Text = Nothing Then
+                INI_File.WriteString("Backup", "Directory", BackupDir)
+            End If
+            If Not chkPadder.Checked Then
+                INI_File.WriteString("AppSettings", "ShowPadder", "False")
+            End If
+        End If
+
+        If System.IO.File.Exists(Application.StartupPath & "/Rocksmith.exe") Then
+            Process.Start(Application.StartupPath & " /Rocksmith.exe")
+        ElseIf System.IO.File.Exists(Application.StartupPath & "/Game.exe") Then
+            Process.Start(Application.StartupPath & "/Game.exe")
+        End If
     End Sub
 End Class

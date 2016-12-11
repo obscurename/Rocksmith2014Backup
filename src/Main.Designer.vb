@@ -168,6 +168,7 @@ Partial Class Main
         Me.Controls.Add(Me.btnLaunch)
         Me.Name = "Main"
         Me.ShowIcon = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Rocksmith Backup"
         Me.ResumeLayout(False)
         Me.PerformLayout()
