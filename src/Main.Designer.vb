@@ -22,7 +22,7 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnLaunch = New System.Windows.Forms.Button()
+        Me.btnSaveLaunch = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtID = New System.Windows.Forms.TextBox()
         Me.btnChangeID = New System.Windows.Forms.Button()
@@ -34,17 +34,17 @@ Partial Class Main
         Me.Label3 = New System.Windows.Forms.Label()
         Me.chkPadder = New System.Windows.Forms.CheckBox()
         Me.lblReadOnly = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnLaunch = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'btnLaunch
+        'btnSaveLaunch
         '
-        Me.btnLaunch.Location = New System.Drawing.Point(39, 184)
-        Me.btnLaunch.Name = "btnLaunch"
-        Me.btnLaunch.Size = New System.Drawing.Size(183, 42)
-        Me.btnLaunch.TabIndex = 0
-        Me.btnLaunch.Text = "Save config && Launch Rocksmith"
-        Me.btnLaunch.UseVisualStyleBackColor = True
+        Me.btnSaveLaunch.Location = New System.Drawing.Point(39, 184)
+        Me.btnSaveLaunch.Name = "btnSaveLaunch"
+        Me.btnSaveLaunch.Size = New System.Drawing.Size(183, 42)
+        Me.btnSaveLaunch.TabIndex = 0
+        Me.btnSaveLaunch.Text = "Save config && Launch Rocksmith"
+        Me.btnSaveLaunch.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -150,14 +150,14 @@ Partial Class Main
         Me.lblReadOnly.Text = "Config is read only."
         Me.lblReadOnly.Visible = False
         '
-        'Button1
+        'btnLaunch
         '
-        Me.Button1.Location = New System.Drawing.Point(228, 184)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(111, 42)
-        Me.Button1.TabIndex = 12
-        Me.Button1.Text = "Launch Rocksmith"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnLaunch.Location = New System.Drawing.Point(228, 184)
+        Me.btnLaunch.Name = "btnLaunch"
+        Me.btnLaunch.Size = New System.Drawing.Size(111, 42)
+        Me.btnLaunch.TabIndex = 12
+        Me.btnLaunch.Text = "Launch Rocksmith"
+        Me.btnLaunch.UseVisualStyleBackColor = True
         '
         'Main
         '
@@ -165,7 +165,7 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ClientSize = New System.Drawing.Size(378, 233)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnLaunch)
         Me.Controls.Add(Me.lblReadOnly)
         Me.Controls.Add(Me.chkPadder)
         Me.Controls.Add(Me.btnBackupDir)
@@ -177,7 +177,7 @@ Partial Class Main
         Me.Controls.Add(Me.btnChangeID)
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.btnLaunch)
+        Me.Controls.Add(Me.btnSaveLaunch)
         Me.MaximizeBox = False
         Me.Name = "Main"
         Me.ShowIcon = False
@@ -187,7 +187,7 @@ Partial Class Main
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnLaunch As System.Windows.Forms.Button
+    Friend WithEvents btnSaveLaunch As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtID As System.Windows.Forms.TextBox
     Friend WithEvents btnChangeID As System.Windows.Forms.Button
@@ -199,5 +199,5 @@ Partial Class Main
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents chkPadder As System.Windows.Forms.CheckBox
     Friend WithEvents lblReadOnly As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btnLaunch As System.Windows.Forms.Button
 End Class

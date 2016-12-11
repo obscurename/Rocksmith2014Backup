@@ -63,7 +63,7 @@ Retry:
         End Select
     End Sub
 
-    Private Sub btnLaunch_Click(sender As Object, e As EventArgs) Handles btnLaunch.Click
+    Private Sub btnSaveLaunch_Click(sender As Object, e As EventArgs) Handles btnSaveLaunch.Click
         If Not txtID.Text = Nothing Then
             INI_File.WriteInteger("Steam3ID", "User", SteamID)
         End If
@@ -77,6 +77,11 @@ Retry:
             INI_File.WriteString("AppSettings", "ShowPadder", "False")
         End If
 
+        Me.Hide()
+        initializer.Show()
+    End Sub
+
+    Private Sub btnLaunch_Click_1(sender As Object, e As EventArgs) Handles btnLaunch.Click
         Me.Hide()
         initializer.Show()
     End Sub
