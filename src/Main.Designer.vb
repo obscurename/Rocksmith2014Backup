@@ -34,15 +34,16 @@ Partial Class Main
         Me.Label3 = New System.Windows.Forms.Label()
         Me.chkPadder = New System.Windows.Forms.CheckBox()
         Me.lblReadOnly = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnLaunch
         '
-        Me.btnLaunch.Location = New System.Drawing.Point(36, 184)
+        Me.btnLaunch.Location = New System.Drawing.Point(39, 184)
         Me.btnLaunch.Name = "btnLaunch"
-        Me.btnLaunch.Size = New System.Drawing.Size(307, 42)
+        Me.btnLaunch.Size = New System.Drawing.Size(183, 42)
         Me.btnLaunch.TabIndex = 0
-        Me.btnLaunch.Text = "Launch Rocksmith"
+        Me.btnLaunch.Text = "Save config && Launch Rocksmith"
         Me.btnLaunch.UseVisualStyleBackColor = True
         '
         'Label1
@@ -142,18 +143,29 @@ Partial Class Main
         Me.lblReadOnly.AutoSize = True
         Me.lblReadOnly.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblReadOnly.ForeColor = System.Drawing.Color.Red
-        Me.lblReadOnly.Location = New System.Drawing.Point(236, 6)
+        Me.lblReadOnly.Location = New System.Drawing.Point(230, 9)
         Me.lblReadOnly.Name = "lblReadOnly"
         Me.lblReadOnly.Size = New System.Drawing.Size(141, 16)
         Me.lblReadOnly.TabIndex = 11
         Me.lblReadOnly.Text = "Config is read only."
         Me.lblReadOnly.Visible = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(228, 184)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(111, 42)
+        Me.Button1.TabIndex = 12
+        Me.Button1.Text = "Launch Rocksmith"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(378, 228)
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ClientSize = New System.Drawing.Size(378, 233)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.lblReadOnly)
         Me.Controls.Add(Me.chkPadder)
         Me.Controls.Add(Me.btnBackupDir)
@@ -166,6 +178,7 @@ Partial Class Main
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnLaunch)
+        Me.MaximizeBox = False
         Me.Name = "Main"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -186,4 +199,5 @@ Partial Class Main
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents chkPadder As System.Windows.Forms.CheckBox
     Friend WithEvents lblReadOnly As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

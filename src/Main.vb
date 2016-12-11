@@ -1,6 +1,5 @@
 ﻿Public Class Main
     Dim isReadOnly As Boolean = False
-    Dim ConfigModified As Boolean = False
 
     Dim INI_File As New IniFile(Application.StartupPath + "/config.ini")
 
@@ -33,10 +32,6 @@
     Private Sub btnChangeID_Click(sender As Object, e As EventArgs) Handles btnChangeID.Click
         Select Case MessageBox.Show("Is this correct?", "RocksmithBackup", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             Case Windows.Forms.DialogResult.Yes
-                If Not ConfigModified = True Then
-                    ConfigModified = True
-                    btnLaunch.Text = "Save config & Launch Rocksmith"
-                End If
                 SteamID = txtID.Text
             Case Windows.Forms.DialogResult.No
                 txtID.Clear()
@@ -45,14 +40,17 @@
 
     Private Sub btnSteamDir_Click(sender As Object, e As EventArgs) Handles btnSteamDir.Click
         Dim FBD As New FolderBrowserDialog With {.Description = "Select the Steam installation directory."}
-        Select Case FBD.ShowDialog
+Retry:
+        Select FBD.ShowDialog
             Case Windows.Forms.DialogResult.OK
-                If Not ConfigModified = True Then
-                    ConfigModified = True
-                    btnLaunch.Text = "Save config & Launch Rocksmith"
+                If System.IO.File.Exists(FBD.SelectedPath & "/Steam.exe") Then
+                    txtSteamDir.Text = FBD.SelectedPath
+                Else
+                    Select Case MessageBox.Show("This does not seem to be a valid directory.", "Steam Directory", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error)
+                        Case Windows.Forms.DialogResult.Retry
+                            GoTo retry
+                    End Select
                 End If
-                SteamDir = FBD.SelectedPath
-                txtSteamDir.Text = FBD.SelectedPath
         End Select
     End Sub
 
@@ -60,35 +58,26 @@
         Dim FBD As New FolderBrowserDialog With {.Description = "Select a backup directory."}
         Select Case FBD.ShowDialog
             Case Windows.Forms.DialogResult.OK
-                If Not ConfigModified = True Then
-                    ConfigModified = True
-                    btnLaunch.Text = "Save config & Launch Rocksmith"
-                End If
                 BackupDir = FBD.SelectedPath
                 txtBackupDir.Text = FBD.SelectedPath
         End Select
     End Sub
 
     Private Sub btnLaunch_Click(sender As Object, e As EventArgs) Handles btnLaunch.Click
-        If ConfigModified = True Then
-            If Not txtID.Text = Nothing Then
-                INI_File.WriteInteger("Steam3ID", "User", SteamID)
-            End If
-            If Not txtSteamDir.Text = Nothing Then
-                INI_File.WriteString("Steam", "Directory", SteamDir)
-            End If
-            If Not txtBackupDir.Text = Nothing Then
-                INI_File.WriteString("Backup", "Directory", BackupDir)
-            End If
-            If Not chkPadder.Checked Then
-                INI_File.WriteString("AppSettings", "ShowPadder", "False")
-            End If
+        If Not txtID.Text = Nothing Then
+            INI_File.WriteInteger("Steam3ID", "User", SteamID)
+        End If
+        If Not txtSteamDir.Text = Nothing Then
+            INI_File.WriteString("Steam", "Directory", SteamDir)
+        End If
+        If Not txtBackupDir.Text = Nothing Then
+            INI_File.WriteString("Backup", "Directory", BackupDir)
+        End If
+        If Not chkPadder.Checked Then
+            INI_File.WriteString("AppSettings", "ShowPadder", "False")
         End If
 
-        If System.IO.File.Exists(Application.StartupPath & "/Rocksmith.exe") Then
-            Process.Start(Application.StartupPath & " /Rocksmith.exe")
-        ElseIf System.IO.File.Exists(Application.StartupPath & "/Game.exe") Then
-            Process.Start(Application.StartupPath & "/Game.exe")
-        End If
+        Me.Hide()
+        initializer.Show()
     End Sub
 End Class

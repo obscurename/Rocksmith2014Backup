@@ -166,6 +166,7 @@ Partial Class Settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ClientSize = New System.Drawing.Size(322, 422)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.chkPadder)
@@ -180,6 +181,7 @@ Partial Class Settings
         Me.Controls.Add(Me.txtID)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.MaximizeBox = False
         Me.Name = "Settings"
         Me.Opacity = 0.0R
         Me.ShowIcon = False

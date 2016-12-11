@@ -156,4 +156,7 @@ This is user-preference, if you want a form to show up before launching
 or if you're alright with the settings you can just not have it show at the
 launch.</value>
   </data>
+  <metadata name="Helper.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
