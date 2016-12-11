@@ -10,9 +10,9 @@ Put the "Rocksmith2014.exe" in the releases page into the Rocksmith 2014 game di
 
 If you're building yourself; build the application using VisualStudio or another compiler of your choice, rename "RocksmithBackup.exe" to "Rocksmith2014.exe" and put it into the game's directory.
 
-When you run the program, it will require 2 more pieces of information from you:
+When you run the program, it will require 3 more pieces of information from you:
 
-Your Steam3 ID and the Steam installation directory.
+Your Steam3 ID, the Steam installation directory, and an optional backup location to make backups in another folder.
 
 You can get your Steam3 ID from the userdata folder, or using [this tool](http://www.steamidfinder.com/).
 
