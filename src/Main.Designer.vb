@@ -35,11 +35,12 @@ Partial Class Main
         Me.chkPadder = New System.Windows.Forms.CheckBox()
         Me.lblReadOnly = New System.Windows.Forms.Label()
         Me.btnLaunch = New System.Windows.Forms.Button()
+        Me.btnDefaultBackup = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnSaveLaunch
         '
-        Me.btnSaveLaunch.Location = New System.Drawing.Point(39, 184)
+        Me.btnSaveLaunch.Location = New System.Drawing.Point(39, 167)
         Me.btnSaveLaunch.Name = "btnSaveLaunch"
         Me.btnSaveLaunch.Size = New System.Drawing.Size(183, 42)
         Me.btnSaveLaunch.TabIndex = 0
@@ -101,9 +102,9 @@ Partial Class Main
         '
         'btnBackupDir
         '
-        Me.btnBackupDir.Location = New System.Drawing.Point(314, 109)
+        Me.btnBackupDir.Location = New System.Drawing.Point(271, 109)
         Me.btnBackupDir.Name = "btnBackupDir"
-        Me.btnBackupDir.Size = New System.Drawing.Size(57, 23)
+        Me.btnBackupDir.Size = New System.Drawing.Size(56, 23)
         Me.btnBackupDir.TabIndex = 9
         Me.btnBackupDir.Text = "Change"
         Me.btnBackupDir.UseVisualStyleBackColor = True
@@ -113,7 +114,7 @@ Partial Class Main
         Me.txtBackupDir.Location = New System.Drawing.Point(26, 111)
         Me.txtBackupDir.Name = "txtBackupDir"
         Me.txtBackupDir.ReadOnly = True
-        Me.txtBackupDir.Size = New System.Drawing.Size(282, 20)
+        Me.txtBackupDir.Size = New System.Drawing.Size(242, 20)
         Me.txtBackupDir.TabIndex = 8
         Me.txtBackupDir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -131,7 +132,7 @@ Partial Class Main
         Me.chkPadder.AutoSize = True
         Me.chkPadder.Checked = True
         Me.chkPadder.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkPadder.Location = New System.Drawing.Point(103, 155)
+        Me.chkPadder.Location = New System.Drawing.Point(103, 144)
         Me.chkPadder.Name = "chkPadder"
         Me.chkPadder.Size = New System.Drawing.Size(173, 17)
         Me.chkPadder.TabIndex = 10
@@ -152,19 +153,29 @@ Partial Class Main
         '
         'btnLaunch
         '
-        Me.btnLaunch.Location = New System.Drawing.Point(228, 184)
+        Me.btnLaunch.Location = New System.Drawing.Point(228, 167)
         Me.btnLaunch.Name = "btnLaunch"
         Me.btnLaunch.Size = New System.Drawing.Size(111, 42)
         Me.btnLaunch.TabIndex = 12
         Me.btnLaunch.Text = "Launch Rocksmith"
         Me.btnLaunch.UseVisualStyleBackColor = True
         '
+        'btnDefaultBackup
+        '
+        Me.btnDefaultBackup.Location = New System.Drawing.Point(328, 109)
+        Me.btnDefaultBackup.Name = "btnDefaultBackup"
+        Me.btnDefaultBackup.Size = New System.Drawing.Size(49, 23)
+        Me.btnDefaultBackup.TabIndex = 13
+        Me.btnDefaultBackup.Text = "Default"
+        Me.btnDefaultBackup.UseVisualStyleBackColor = True
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(378, 233)
+        Me.ClientSize = New System.Drawing.Size(378, 221)
+        Me.Controls.Add(Me.btnDefaultBackup)
         Me.Controls.Add(Me.btnLaunch)
         Me.Controls.Add(Me.lblReadOnly)
         Me.Controls.Add(Me.chkPadder)
@@ -200,4 +211,5 @@ Partial Class Main
     Friend WithEvents chkPadder As System.Windows.Forms.CheckBox
     Friend WithEvents lblReadOnly As System.Windows.Forms.Label
     Friend WithEvents btnLaunch As System.Windows.Forms.Button
+    Friend WithEvents btnDefaultBackup As System.Windows.Forms.Button
 End Class

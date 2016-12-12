@@ -21,6 +21,18 @@
             chkPadder.Enabled = False
             lblReadOnly.Visible = True
         End If
+
+        SteamID = INI_File.GetInteger("Steam3ID", "User", 0)
+        SteamDir = INI_File.GetString("Steam", "Directory", Nothing)
+        BackupDir = INI_File.GetString("Backup", "Directory", "Default")
+
+        If BackupDir = "Default" Then
+            BackupDir = SteamDir & "/userdata/" & SteamID & "/221680/remote"
+        End If
+
+        txtID.Text = SteamID
+        txtSteamDir.Text = SteamDir
+        txtBackupDir.Text = BackupDir
     End Sub
     Private Sub txtID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtID.KeyPress
         If Asc(e.KeyChar) <> 8 Then
@@ -62,16 +74,24 @@ Retry:
                 txtBackupDir.Text = FBD.SelectedPath
         End Select
     End Sub
+    Private Sub btnDefaultBackup_Click(sender As Object, e As EventArgs) Handles btnDefaultBackup.Click
+        txtBackupDir.Text = "Default"
+    End Sub
 
     Private Sub btnSaveLaunch_Click(sender As Object, e As EventArgs) Handles btnSaveLaunch.Click
         If Not txtID.Text = Nothing Then
-            INI_File.WriteInteger("Steam3ID", "User", SteamID)
+            INI_File.WriteInteger("Steam3ID", "User", 0)
         End If
         If Not txtSteamDir.Text = Nothing Then
             INI_File.WriteString("Steam", "Directory", SteamDir)
         End If
         If Not txtBackupDir.Text = Nothing Then
-            INI_File.WriteString("Backup", "Directory", BackupDir)
+            If Not txtBackupDir.Text = "Defualt" Then
+                INI_File.WriteString("Backup", "Directory", BackupDir)
+            Else
+
+            End If
+
         End If
         If Not chkPadder.Checked Then
             INI_File.WriteString("AppSettings", "ShowPadder", "False")
