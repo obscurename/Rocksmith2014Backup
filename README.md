@@ -3,22 +3,12 @@ Currently undergoing redesign and code transfer.
 # RocksmithBackup
 Backup Rocksmith 2014 Steam saves with this tool.
 
-It requires Steam & Rocksmith2014 for steam, but it does not run Rocksmith using Steam GameID, instead if runs Rocksmith2014 by the executable name. This application is made to be ran via steam.
+Manage backups, restore from within the application, and the setup is about 98% more easier than before, instincively suggesting that the previous time setting it up was 1% easy which it was.
 
 # Setup
-Setup requires the "Rocksmith2014.exe" name, so; rename the original "Rocksmith2014.exe" to "Game.exe".
+Setup uses the "Rocksmith2014.exe" name for startup backup, so; rename the original "Rocksmith2014.exe" to "Rocksmith.exe" or "Game.exe". The former being the better idea.
 
-Put the "Rocksmith2014.exe" in the releases page into the Rocksmith 2014 game directory
-
-If you're building yourself; build the application using VisualStudio or another compiler of your choice, rename "RocksmithBackup.exe" to "Rocksmith2014.exe" and put it into the game's directory.
-
-When you run the program, it will require 3 more pieces of information from you:
-
-Your Steam3 ID, the Steam installation directory, and an optional backup location to make backups in another folder.
-
-You can get your Steam3 ID from the userdata folder, or using [this tool](http://www.steamidfinder.com/).
-
-The Steam installation directory varies depending on where you installed Steam, generally, just select the folder that includes "Userdata" subfolder & "Steam.exe".
+On initial startup, it will attempt to figure out the save file location (using Registry). If you ues multiple profiles, it'll ask for you to intervene with the correct Steam3 ID, otherwise it should run properly.
 
 # FAQ
 
@@ -26,13 +16,13 @@ Q: Why Steam only?
 A: I only have the Steam version. If there exists other versions, send me a message on reddit (/u/ecaep42) and tell me where the save files are located for other versions.
 
 Q: Any chances of it working for anything other than Steam?  
-A: If you made an insane setup for Rocksmith 2014 that is identical to the way Steam saves the game's save files, it might. Otherwise, don't count on it. This tool requires the Steam3ID for a user for the folder that contains ext. game data, because Rocksmith 2014 does not save in My Documents or %AppData% locations.
+A: If you made an insane setup for Rocksmith 2014 that is identical to the way Steam saves the game's save files, it might. Otherwise, don't count on it.
 
-Q: Will it work for (future update)?  
-A: I don't know, if it stops working for me I'll update it.
+Q: Will it work for <future update>?  
+A: If they change how the save is managed, it will need to be patched, otherwise it should work without updating, as it bases itself on directory-based backups, meaning it copies the directory the save is located in to the directory where you store the backups at.
 
 # Annoying "The catch"
 
-There's no catch to using this application, it just copys the save data to a folder, and saves 3 different versions (1 being oldest, 3 being latest.) If your game corrupts, it is a CDLC fault, not this program's. I cannot guarrantee a backup will be corrupt-free (if you try to restart the game 3 times because you got annoyed, this will overwrite all 3 backups with a corrupted backup.) but this program does try to prevent corruptions via backups.
+There's no catch to using this application, it just backs up your save data. If your save becomes corrupt, it is most likely a CDLC fault, not this program's. I cannot guarrantee a backup will be corrupt-free, if you try to restore from a backup that has been corrupted. This program does not edit save files in any way and does not overwrite them unless being restored.
 
-Of course, if your save files break or get corrupted (either from this program or from a CLDC), it is **not my fault**, as the source does not overwrite the original save file.
+Of course, if your save files break or get corrupted (either from this program or from a CLDC), it is **not my fault**, as the source is not intended to do such a thing.
