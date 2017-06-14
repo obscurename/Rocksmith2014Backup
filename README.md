@@ -13,10 +13,10 @@ On initial startup, it will attempt to figure out the save file location (using 
 # FAQ
 
 Q: Why Steam only?  
-A: I only have the Steam version. If there exists other versions, send me a message on reddit (/u/ecaep42) and tell me where the save files are located for other versions.
+A: I only have the Steam version. 
 
 Q: Any chances of it working for anything other than Steam?  
-A: If you made an insane setup for Rocksmith 2014 that is identical to the way Steam saves the game's save files, it might. Otherwise, don't count on it.
+A: If you made an insane setup for Rocksmith 2014 that is identical to the way Steam saves the game's save files, it might. Otherwise, don't count on it. If you want to help, open an issue and tell me where the save files are located for other versions. However, if they are located at the root of the game, I know they are there. I have not found a good method for detecting them automatically.
 
 Q: Will it work for <future update>?  
 A: If they change how the save is managed, it will need to be patched, otherwise it should work without updating, as it bases itself on directory-based backups, meaning it copies the directory the save is located in to the directory where you store the backups at.
