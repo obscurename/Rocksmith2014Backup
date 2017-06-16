@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.BackupAllFiles = new System.ComponentModel.BackgroundWorker();
             this.mDeleteSelectedBackup = new System.Windows.Forms.MenuItem();
@@ -73,6 +78,7 @@
             this.btnLaunch = new System.Windows.Forms.Button();
             this.lbBootTime = new System.Windows.Forms.Label();
             this.tmrAuto = new System.Windows.Forms.Timer(this.components);
+            this.chkDelAfter = new System.Windows.Forms.CheckBox();
             this.cmFinish = new CommandLink();
             this.treeBackups = new VistaControls.ExplorerTreeview();
             this.btnBackupSettings = new VistaControls.SplitButton();
@@ -86,6 +92,7 @@
             this.mDeleteSelectedBackup.Enabled = false;
             this.mDeleteSelectedBackup.Index = 4;
             this.mDeleteSelectedBackup.Text = "Delete this backup";
+            this.mDeleteSelectedBackup.Click += new System.EventHandler(this.mDeleteSelectedBackup_Click);
             // 
             // mSep2
             // 
@@ -97,6 +104,7 @@
             this.mRestoreSelectedBackup.Enabled = false;
             this.mRestoreSelectedBackup.Index = 2;
             this.mRestoreSelectedBackup.Text = "Restore this backup";
+            this.mRestoreSelectedBackup.Click += new System.EventHandler(this.mRestoreSelectedBackup_Click);
             // 
             // mSep3
             // 
@@ -107,6 +115,7 @@
             // 
             this.mCreateBackup.Index = 0;
             this.mCreateBackup.Text = "Create backup";
+            this.mCreateBackup.Click += new System.EventHandler(this.mCreateBackup_Click);
             // 
             // cmTreeview
             // 
@@ -121,12 +130,14 @@
             // 
             this.mDelAll.Index = 1;
             this.mDelAll.Text = "All backups";
+            this.mDelAll.Click += new System.EventHandler(this.mDelAll_Click);
             // 
             // mDelSelected
             // 
             this.mDelSelected.Enabled = false;
             this.mDelSelected.Index = 0;
             this.mDelSelected.Text = "Selected backup";
+            this.mDelSelected.Click += new System.EventHandler(this.mDelSelected_Click);
             // 
             // mS
             // 
@@ -138,6 +149,7 @@
             this.mRestoreBackup.Enabled = false;
             this.mRestoreBackup.Index = 2;
             this.mRestoreBackup.Text = "Restore backup";
+            this.mRestoreBackup.Click += new System.EventHandler(this.mRestoreBackup_Click);
             // 
             // MenuItem2
             // 
@@ -148,6 +160,7 @@
             // 
             this.mCreate.Index = 0;
             this.mCreate.Text = "Create backup";
+            this.mCreate.Click += new System.EventHandler(this.mCreate_Click);
             // 
             // cmBackups
             // 
@@ -373,6 +386,7 @@
             this.lbHelp.Size = new System.Drawing.Size(29, 13);
             this.lbHelp.TabIndex = 18;
             this.lbHelp.Text = "Help";
+            this.lbHelp.Click += new System.EventHandler(this.lbHelp_Click);
             // 
             // rbDelay10
             // 
@@ -454,6 +468,16 @@
             this.tmrAuto.Interval = 1000;
             this.tmrAuto.Tick += new System.EventHandler(this.tmrAuto_Tick);
             // 
+            // chkDelAfter
+            // 
+            this.chkDelAfter.AutoSize = true;
+            this.chkDelAfter.Location = new System.Drawing.Point(599, 31);
+            this.chkDelAfter.Name = "chkDelAfter";
+            this.chkDelAfter.Size = new System.Drawing.Size(121, 17);
+            this.chkDelAfter.TabIndex = 42;
+            this.chkDelAfter.Text = "Delete After Restore";
+            this.chkDelAfter.UseVisualStyleBackColor = true;
+            // 
             // cmFinish
             // 
             this.cmFinish.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -472,6 +496,14 @@
             this.treeBackups.HotTracking = true;
             this.treeBackups.Location = new System.Drawing.Point(18, 27);
             this.treeBackups.Name = "treeBackups";
+            treeNode1.Name = "Node1";
+            treeNode1.Text = "Node1";
+            treeNode2.Name = "Node2";
+            treeNode2.Text = "Node2";
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "Node0";
+            this.treeBackups.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode3});
             this.treeBackups.ShowLines = false;
             this.treeBackups.Size = new System.Drawing.Size(255, 239);
             this.treeBackups.TabIndex = 24;
@@ -495,7 +527,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 330);
+            this.ClientSize = new System.Drawing.Size(732, 330);
+            this.Controls.Add(this.chkDelAfter);
             this.Controls.Add(this.groupAutoboot);
             this.Controls.Add(this.cmFinish);
             this.Controls.Add(this.groupBox1);
@@ -583,5 +616,6 @@
         private System.Windows.Forms.Button btnLaunch;
         private System.Windows.Forms.Label lbBootTime;
         private System.Windows.Forms.Timer tmrAuto;
+        private System.Windows.Forms.CheckBox chkDelAfter;
     }
 }
