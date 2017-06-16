@@ -258,6 +258,12 @@ namespace Rocksmith2014Backup
                 BackupsMade += 1;
                 getFolders.Add(findfolders);
             }
+            if (Properties.Settings.Default.BackupsToKeep == 0)
+            {
+                BackupsMade = 0;
+                getFolders.Clear();
+                return;
+            }
             if (BackupsMade == Properties.Settings.Default.BackupsToKeep)
             {
                 // If there are equal backups as user defined maximum, delete the first folder.
@@ -268,7 +274,9 @@ namespace Rocksmith2014Backup
         private void MakeBackup()
         {
             if (Properties.Settings.Default.SteamID > 0) {
+                if (Properties.Settings.Default.BackupsToKeep != 0) {
                 DeleteEarliestBackup();
+                }
                 string BackupName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
                 Directory.CreateDirectory(Properties.Settings.Default.BackupDir + "\\" + BackupName);
                 foreach (string liveFile in Directory.GetFiles(Properties.Settings.Default.SteamInstallDir + "\\Userdata\\" + Properties.Settings.Default.SteamID + "\\" + Properties.Settings.Default.RocksmithSteamID + "\\remote"))
