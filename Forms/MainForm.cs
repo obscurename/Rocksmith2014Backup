@@ -24,7 +24,7 @@ namespace Rocksmith2014Backup
 
         RegistryKey SteamPath = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Valve\\Steam");
         RegistryKey SteamProfiles = Registry.CurrentUser.OpenSubKey("Software\\Valve\\Steam\\Users");
-        Form frmAbout = new AboutForm();
+        bool SettingsShown = false;
         int Boot = 5;
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -72,6 +72,7 @@ namespace Rocksmith2014Backup
             }
             treeBackups.ContextMenu = cmTreeview;
             ReloadBackups();
+            LoadSettings();
         }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
@@ -79,10 +80,12 @@ namespace Rocksmith2014Backup
             if (this.Width >= 340)
             {
                 btnSettings.Text = "Hide Settings";
+                SettingsShown = true;
             }
             else
             {
                 btnSettings.Text = "Show Settings";
+                SettingsShown = false;
             }
         }
 
@@ -332,12 +335,14 @@ namespace Rocksmith2014Backup
         }
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            if (this.Width >= 340) {
+            if (SettingsShown == false) {
                 btnSettings.Text = "Hide Settings";
                 this.Size = new Size(740, 360);
+                SettingsShown = true;
             }else{
                 btnSettings.Text = "Show Settings";
                 this.Size = new Size(290, 360);
+                SettingsShown = false;
             }
         }
         private void btnLaunchGame_Click(object sender, EventArgs e)
@@ -346,6 +351,7 @@ namespace Rocksmith2014Backup
         }
         private void btnAbout_Click(object sender, EventArgs e)
         {
+            Form frmAbout = new AboutForm();
             frmAbout.Show();
         }
 
@@ -455,6 +461,7 @@ namespace Rocksmith2014Backup
             treeBackups.Enabled = true;
             groupAutoboot.Visible = false;
             this.Size = new Size(740, 360);
+            SettingsShown = true;
         }
         private void btnLaunch_Click(object sender, EventArgs e)
         {
