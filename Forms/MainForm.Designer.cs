@@ -269,7 +269,6 @@
             // 
             // btnBrowseSteam
             // 
-            this.btnBrowseSteam.Enabled = false;
             this.btnBrowseSteam.Location = new System.Drawing.Point(573, 104);
             this.btnBrowseSteam.Name = "btnBrowseSteam";
             this.btnBrowseSteam.Size = new System.Drawing.Size(24, 23);
@@ -280,7 +279,6 @@
             // 
             // txtSteamPath
             // 
-            this.txtSteamPath.Enabled = false;
             this.txtSteamPath.Location = new System.Drawing.Point(333, 106);
             this.txtSteamPath.Name = "txtSteamPath";
             this.txtSteamPath.ReadOnly = true;
@@ -471,7 +469,7 @@
             // chkDelAfter
             // 
             this.chkDelAfter.AutoSize = true;
-            this.chkDelAfter.Location = new System.Drawing.Point(599, 31);
+            this.chkDelAfter.Location = new System.Drawing.Point(555, 34);
             this.chkDelAfter.Name = "chkDelAfter";
             this.chkDelAfter.Size = new System.Drawing.Size(121, 17);
             this.chkDelAfter.TabIndex = 42;
@@ -527,7 +525,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 330);
+            this.ClientSize = new System.Drawing.Size(282, 330);
             this.Controls.Add(this.chkDelAfter);
             this.Controls.Add(this.groupAutoboot);
             this.Controls.Add(this.cmFinish);
@@ -557,7 +555,7 @@
             this.MinimumSize = new System.Drawing.Size(290, 360);
             this.Name = "MainForm";
             this.Text = "Rocksmith 2014 Backup";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.numBackups)).EndInit();
             this.groupBox1.ResumeLayout(false);

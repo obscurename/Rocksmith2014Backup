@@ -27,49 +27,6 @@ namespace Rocksmith2014Backup
         Form frmAbout = new AboutForm();
         int Boot = 5;
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.FirstTimeSetup == true)
-            {
-                // First time setup.
-                switch (MessageBox.Show("It appears you've launched this program for the first time. Would you like to automatically detect settings?", "Rocksmith 2014 Backup", MessageBoxButtons.YesNoCancel))
-                {
-                    case System.Windows.Forms.DialogResult.Yes:
-                        DetectSettings();
-                        break;
-                    case System.Windows.Forms.DialogResult.Cancel:
-                        Application.Exit();
-                        break;
-                }
-                //// Expand settings for editing, and disable the backup buttons.
-                btnSettings.Text = "Hide Settings";
-                this.Size = new Size(740, 360);
-            }
-            else
-            {
-                if (File.Exists(Application.StartupPath + "\\skipdelay.txt"))
-                {
-                    Boot = 0;
-                }
-                else
-                {
-                    Boot = Properties.Settings.Default.BootDelay;
-                }
-                if (!Properties.Settings.Default.AutoBoot == true)
-                {
-                    btnBackupSettings.Enabled = true;
-                    btnSettings.Enabled = true;
-                    btnLaunchGame.Enabled = true;
-                    btnAbout.Enabled = true;
-                    treeBackups.Enabled = true;
-                }else{
-                    groupAutoboot.Visible = true;
-                    tmrAuto.Start();
-                }
-            }
-            treeBackups.ContextMenu = cmTreeview;
-            ReloadBackups();
-        }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
@@ -119,11 +76,20 @@ namespace Rocksmith2014Backup
             }
             if (txtBackupPath.Text != "")
             {
+                if (txtBackupPath.Text != Properties.Settings.Default.BackupDir)
+                {
+                    // Move backups to new directory.
+                    foreach (string backupFile in Directory.GetFiles(Properties.Settings.Default.BackupDir))
+                    {
+                        File.Copy(backupFile, Path.Combine(txtBackupPath.Text));
+                    }
+                    Properties.Settings.Default.BackupDir = txtBackupPath.Text;
+                }
                 Properties.Settings.Default.BackupDir = txtBackupPath.Text;
             }
             if (numBackups.Value == Properties.Settings.Default.BackupsToKeep)
             {
-                //Will fix this in the future.
+                // Intentionally do nothing. Will fix this in the future.
             }
             else
             {
@@ -159,9 +125,11 @@ namespace Rocksmith2014Backup
         private void DetectSettings()
         {
             // Find steam directory, if not found return "null"
-            if ((string)SteamPath.GetValue("InstallPath".ToUpper()) != null)
+            string FoundSteamDir = "";
+            if ((string)SteamPath.GetValue("InstallPath".ToString()) != null)
             {
-                txtSteamPath.Text = (string)SteamPath.GetValue("InstallPath".ToUpper());
+                FoundSteamDir = (string)SteamPath.GetValue("InstallPath".ToString());
+                txtSteamPath.Text = FoundSteamDir;
             }
             else
             {
@@ -172,53 +140,30 @@ namespace Rocksmith2014Backup
             // Attempt to find the user profile with Rocksmith 2014
             int ProfilesFound = 0;
             int FoundRocksmithSaves = 0;
-            int RocksmithSaveProfile = 0;
+            string RocksmithSaveProfile = "";
             foreach (string KeyName in SteamProfiles.GetSubKeyNames())
             {
                 ProfilesFound += 1;
                 // Attempt to find GameID 221680
-                if (!Directory.Exists(SteamPath + "\\Userdata\\" + KeyName + "\\221680\\remote"))
-                {
-                    return;
-                }
-                else
+                if (Directory.Exists(FoundSteamDir + "\\userdata\\" + KeyName + "\\221680\\remote"))
                 {
                     FoundRocksmithSaves += 1;
-                    RocksmithSaveProfile = Int32.Parse(KeyName);
+                    RocksmithSaveProfile = KeyName;
                 }
             }
-            if (ProfilesFound > 1)
+            if (ProfilesFound > 1 & FoundRocksmithSaves > 1)
             {
-                // More than 1 profiles found.
-                if (FoundRocksmithSaves > 1)
-                {
-                    MessageBox.Show("I found more than one profile with Rocksmith 2014 save files. Please specify your profile in the settings.", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
-                }
-                else if (FoundRocksmithSaves == 1)
-                {
-                    txtID.Text = RocksmithSaveProfile.ToString();
-                }
+                MessageBox.Show("I found more than one profile with Rocksmith 2014 played. Please specify your Steam3 ID manually.", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
             }
-            else if (ProfilesFound < 1)
+            if (FoundRocksmithSaves == 1)
             {
-                // No profiles were found.
-                MessageBox.Show("No profiles were detected. Specify your Steam3 ID in the settings.", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
-                Properties.Settings.Default.SteamID = 0;
+                txtID.Text = RocksmithSaveProfile;
             }
-            else if (ProfilesFound == 1)
+            if (FoundRocksmithSaves < 1)
             {
-                // Just one profile found. Double check the remote file.
-                if (!Directory.Exists(SteamPath + "\\Userdata\\" + Properties.Settings.Default.SteamID + "\\221680\\remote"))
-                {
-                    switch (MessageBox.Show("Found profile does not have a Rocksmith 2014 save. This doesn't support non-steam, but will function just in case there was an error.\n\nIf this is a bug, please submit a Issue on Github -> https://www.github.com/obscuredname/RocksmithBackup. Go there now?", "Rocksmith 2014 Backup", MessageBoxButtons.YesNo))
-                    {
-                        case System.Windows.Forms.DialogResult.Yes:
-                            Process.Start("https://github.com/ecaep42/RocksmithBackup");
-                            break;
-                    }
-                }
+                MessageBox.Show("I coulnd't find any profile with Rocksmith 2014 played. It might be a bug. Specify your Steam3 ID manually,", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
             }
-
+            txtBackupPath.Text = "C:\\Games\\Rocksmith 2014 Backup";
         }
         private void ReloadBackups()
         {
@@ -500,6 +445,53 @@ namespace Rocksmith2014Backup
         private void lbHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This option makes a backup & boots into Rocksmith 2014 without having to click extra buttons. This is useful for making automatic backups when you launch Steam by naming this program \"Rocksmith2014.exe\" and putting it into the Rocksmith 2014 folder, while renaming the old Rocksmith 2014 executable to \"Rocksmith.exe\" or \"Game.exe\".\n\nYou can bypass the delay by making a Text file in the same folder as this program with the name \"skipdelay.txt\".", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.FirstTimeSetup == true)
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.BackupDir);
+                // First time setup.
+                switch (MessageBox.Show("It appears you've launched this program for the first time. Would you like to automatically detect settings?", "Rocksmith 2014 Backup", MessageBoxButtons.YesNoCancel))
+                {
+                    case System.Windows.Forms.DialogResult.Yes:
+                        DetectSettings();
+                        break;
+                    case System.Windows.Forms.DialogResult.Cancel:
+                        Application.Exit();
+                        break;
+                }
+                //// Expand settings for editing, and disable the backup buttons.
+                btnSettings.Text = "Hide Settings";
+                this.Size = new Size(740, 360);
+            }
+            else
+            {
+                if (File.Exists(Application.StartupPath + "\\skipdelay.txt"))
+                {
+                    Boot = 0;
+                }
+                else
+                {
+                    Boot = Properties.Settings.Default.BootDelay;
+                }
+                if (!Properties.Settings.Default.AutoBoot == true)
+                {
+                    btnBackupSettings.Enabled = true;
+                    btnSettings.Enabled = true;
+                    btnLaunchGame.Enabled = true;
+                    btnAbout.Enabled = true;
+                    treeBackups.Enabled = true;
+                }
+                else
+                {
+                    groupAutoboot.Visible = true;
+                    tmrAuto.Start();
+                }
+            }
+            treeBackups.ContextMenu = cmTreeview;
+            ReloadBackups();
         }
     }
 }
