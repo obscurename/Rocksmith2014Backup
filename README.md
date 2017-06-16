@@ -1,4 +1,4 @@
-Currently undergoing redesign and code transfer.
+Warning: Avast & Norton detect v2 as a false virus, it's almost 99% because of the registry lookup. If you don't believe me, view the source & build it yourself.
 
 # RocksmithBackup
 Backup Rocksmith 2014 Steam saves with this tool.
@@ -9,6 +9,8 @@ Manage backups, restore from within the application, and the setup is about 98% 
 Setup uses the "Rocksmith2014.exe" name for startup backup, so; rename the original "Rocksmith2014.exe" to "Rocksmith.exe" or "Game.exe". The former being the better idea.
 
 On initial startup, it will attempt to figure out the save file location (using Registry). If you ues multiple profiles, it'll ask for you to intervene with the correct Steam3 ID, otherwise it should run properly.
+
+If you want to skip the Autoboot Delay, create a new text file in the same directory named "skipdelay.txt".
 
 # FAQ
 
