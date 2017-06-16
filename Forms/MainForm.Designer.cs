@@ -453,7 +453,7 @@
             this.lbBootTime.Name = "lbBootTime";
             this.lbBootTime.Size = new System.Drawing.Size(214, 22);
             this.lbBootTime.TabIndex = 0;
-            this.lbBootTime.Text = "Starting Rocksmith in 5 seconds.";
+            this.lbBootTime.Text = "Starting Rocksmith in 0 seconds.";
             this.lbBootTime.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tmrAuto
@@ -541,6 +541,7 @@
             this.MaximumSize = new System.Drawing.Size(740, 360);
             this.MinimumSize = new System.Drawing.Size(290, 360);
             this.Name = "MainForm";
+            this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rocksmith 2014 Backup";
             this.Shown += new System.EventHandler(this.MainForm_Shown);

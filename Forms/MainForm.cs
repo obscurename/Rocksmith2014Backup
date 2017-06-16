@@ -45,6 +45,7 @@ namespace Rocksmith2014Backup
                 //// Expand settings for editing, and disable the backup buttons.
                 btnSettings.Text = "Hide Settings";
                 this.Size = new Size(740, 360);
+                this.Opacity = 100;
             }
             else
             {
@@ -55,6 +56,8 @@ namespace Rocksmith2014Backup
                 else
                 {
                     Boot = Properties.Settings.Default.BootDelay;
+                    lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds.";
+                    this.Opacity = 100;
                 }
                 if (!Properties.Settings.Default.AutoBoot == true)
                 {
