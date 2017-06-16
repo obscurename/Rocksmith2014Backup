@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.BackupAllFiles = new System.ComponentModel.BackgroundWorker();
             this.mDeleteSelectedBackup = new System.Windows.Forms.MenuItem();
@@ -494,14 +489,6 @@
             this.treeBackups.HotTracking = true;
             this.treeBackups.Location = new System.Drawing.Point(18, 27);
             this.treeBackups.Name = "treeBackups";
-            treeNode1.Name = "Node1";
-            treeNode1.Text = "Node1";
-            treeNode2.Name = "Node2";
-            treeNode2.Text = "Node2";
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "Node0";
-            this.treeBackups.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
             this.treeBackups.ShowLines = false;
             this.treeBackups.Size = new System.Drawing.Size(255, 239);
             this.treeBackups.TabIndex = 24;
@@ -554,6 +541,7 @@
             this.MaximumSize = new System.Drawing.Size(740, 360);
             this.MinimumSize = new System.Drawing.Size(290, 360);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rocksmith 2014 Backup";
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);

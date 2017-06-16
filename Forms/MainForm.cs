@@ -27,6 +27,52 @@ namespace Rocksmith2014Backup
         Form frmAbout = new AboutForm();
         int Boot = 5;
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.FirstTimeSetup == true)
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.BackupDir);
+                // First time setup.
+                switch (MessageBox.Show("It appears you've launched this program for the first time. Would you like to automatically detect settings?", "Rocksmith 2014 Backup", MessageBoxButtons.YesNoCancel))
+                {
+                    case System.Windows.Forms.DialogResult.Yes:
+                        DetectSettings();
+                        break;
+                    case System.Windows.Forms.DialogResult.Cancel:
+                        Environment.Exit(0);
+                        break;
+                }
+                //// Expand settings for editing, and disable the backup buttons.
+                btnSettings.Text = "Hide Settings";
+                this.Size = new Size(740, 360);
+            }
+            else
+            {
+                if (File.Exists(Application.StartupPath + "\\skipdelay.txt"))
+                {
+                    Boot = 0;
+                }
+                else
+                {
+                    Boot = Properties.Settings.Default.BootDelay;
+                }
+                if (!Properties.Settings.Default.AutoBoot == true)
+                {
+                    btnBackupSettings.Enabled = true;
+                    btnSettings.Enabled = true;
+                    btnLaunchGame.Enabled = true;
+                    btnAbout.Enabled = true;
+                    treeBackups.Enabled = true;
+                }
+                else
+                {
+                    groupAutoboot.Visible = true;
+                    tmrAuto.Start();
+                }
+            }
+            treeBackups.ContextMenu = cmTreeview;
+            ReloadBackups();
+        }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
@@ -183,7 +229,7 @@ namespace Rocksmith2014Backup
         {
             if (Directory.Exists(Properties.Settings.Default.BackupDir + "\\" + treeBackups.SelectedNode.Text))
             {
-                Directory.Delete(Properties.Settings.Default.BackupDir + "\\" + treeBackups.SelectedNode.Text);
+                Directory.Delete(Properties.Settings.Default.BackupDir + "\\" + treeBackups.SelectedNode.Text, true);
             }
         }
         private void DeleteAllBackups()
@@ -196,6 +242,7 @@ namespace Rocksmith2014Backup
                         foreach (string BackupMade in Directory.GetDirectories(Properties.Settings.Default.BackupDir))
                         {
                             Directory.Delete(BackupMade, true);
+                            ReloadBackups();
                         }
                     }
                     break;
@@ -375,7 +422,6 @@ namespace Rocksmith2014Backup
                 btnLaunchGame.Enabled = true;
                 btnAbout.Enabled = true;
                 treeBackups.Enabled = true;
-                treeBackups.Nodes.Add("RocksmithBackups", "Rocksmith Backups").Tag = "RootBackups";
                 Properties.Settings.Default.FirstTimeSetup = false;
             }
             SaveSettings();
@@ -383,33 +429,46 @@ namespace Rocksmith2014Backup
         private void btnManage_Click(object sender, EventArgs e)
         {
             tmrAuto.Stop();
+            btnBackupSettings.Enabled = true;
+            btnSettings.Enabled = true;
+            btnLaunchGame.Enabled = true;
+            btnAbout.Enabled = true;
+            treeBackups.Enabled = true;
             groupAutoboot.Visible = false;
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
             tmrAuto.Stop();
+            LoadSettings();
+            btnBackupSettings.Enabled = true;
+            btnSettings.Enabled = true;
+            btnLaunchGame.Enabled = true;
+            btnAbout.Enabled = true;
+            treeBackups.Enabled = true;
             groupAutoboot.Visible = false;
             this.Size = new Size(740, 360);
         }
         private void btnLaunch_Click(object sender, EventArgs e)
         {
             tmrAuto.Stop();
+            MakeBackup();
             LaunchGame();
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void tmrAuto_Tick(object sender, EventArgs e)
         {
-            if (Boot != 0)
+            if (Boot > 0)
             {
                 Boot -= 1;
                 lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds.";
             }
             else
             {
+                tmrAuto.Stop();
                 MakeBackup();
                 LaunchGame();
-                Application.Exit();
+                Environment.Exit(0);
             }
         }
 
@@ -445,53 +504,6 @@ namespace Rocksmith2014Backup
         private void lbHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This option makes a backup & boots into Rocksmith 2014 without having to click extra buttons. This is useful for making automatic backups when you launch Steam by naming this program \"Rocksmith2014.exe\" and putting it into the Rocksmith 2014 folder, while renaming the old Rocksmith 2014 executable to \"Rocksmith.exe\" or \"Game.exe\".\n\nYou can bypass the delay by making a Text file in the same folder as this program with the name \"skipdelay.txt\".", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
-        }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.FirstTimeSetup == true)
-            {
-                Directory.CreateDirectory(Properties.Settings.Default.BackupDir);
-                // First time setup.
-                switch (MessageBox.Show("It appears you've launched this program for the first time. Would you like to automatically detect settings?", "Rocksmith 2014 Backup", MessageBoxButtons.YesNoCancel))
-                {
-                    case System.Windows.Forms.DialogResult.Yes:
-                        DetectSettings();
-                        break;
-                    case System.Windows.Forms.DialogResult.Cancel:
-                        Application.Exit();
-                        break;
-                }
-                //// Expand settings for editing, and disable the backup buttons.
-                btnSettings.Text = "Hide Settings";
-                this.Size = new Size(740, 360);
-            }
-            else
-            {
-                if (File.Exists(Application.StartupPath + "\\skipdelay.txt"))
-                {
-                    Boot = 0;
-                }
-                else
-                {
-                    Boot = Properties.Settings.Default.BootDelay;
-                }
-                if (!Properties.Settings.Default.AutoBoot == true)
-                {
-                    btnBackupSettings.Enabled = true;
-                    btnSettings.Enabled = true;
-                    btnLaunchGame.Enabled = true;
-                    btnAbout.Enabled = true;
-                    treeBackups.Enabled = true;
-                }
-                else
-                {
-                    groupAutoboot.Visible = true;
-                    tmrAuto.Start();
-                }
-            }
-            treeBackups.ContextMenu = cmTreeview;
-            ReloadBackups();
         }
     }
 }
