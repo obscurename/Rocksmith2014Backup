@@ -317,14 +317,17 @@ namespace Rocksmith2014Backup
             if (File.Exists(Application.StartupPath + "\\Rocksmith.exe"))
             {
                 Process.Start(Application.StartupPath + "\\Rocksmith.exe");
+                return;
             }
             else if (File.Exists(Application.StartupPath + "\\Game.exe"))
             {
                 Process.Start(Application.StartupPath + "\\Game.exe");
+                return;
             }
             else
             {
                 MessageBox.Show("Rocksmith was unable to be launched. Make sure you've renamed it to \"Rocksmith.exe\" or \"Game.exe\" to properly work.", "Unable to launch.", MessageBoxButtons.OK);
+                return;
             }
         }
 
