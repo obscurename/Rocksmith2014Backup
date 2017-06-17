@@ -1,5 +1,3 @@
-Warning: Avast & Norton detect v2 as a false virus, it's almost 99% because of the registry lookup. If you don't believe me, view the source & build it yourself.
-
 # RocksmithBackup
 Backup Rocksmith 2014 Steam saves with this tool.
 
@@ -28,3 +26,7 @@ A: If they change how the save is managed, it will need to be patched, otherwise
 There's no catch to using this application, it just backs up your save data. If your save becomes corrupt, it is most likely a CDLC fault, not this program's. I cannot guarrantee a backup will be corrupt-free, if you try to restore from a backup that has been corrupted. This program does not edit save files in any way and does not overwrite them unless being restored.
 
 Of course, if your save files break or get corrupted (either from this program or from a CLDC), it is **not my fault**, as the source is not intended to do such a thing.
+
+# VB.Net release (First two)
+
+These are laughable releases, I regret them.
