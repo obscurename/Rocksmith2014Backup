@@ -72,7 +72,7 @@
             this.btnManage = new System.Windows.Forms.Button();
             this.btnLaunch = new System.Windows.Forms.Button();
             this.lbBootTime = new System.Windows.Forms.Label();
-            this.tmrAuto = new System.Windows.Forms.Timer(this.components);
+            this.tmrAutoBoot = new System.Windows.Forms.Timer(this.components);
             this.chkDelAfter = new System.Windows.Forms.CheckBox();
             this.cmFinish = new CommandLink();
             this.treeBackups = new VistaControls.ExplorerTreeview();
@@ -414,7 +414,6 @@
             this.groupAutoboot.Size = new System.Drawing.Size(258, 99);
             this.groupAutoboot.TabIndex = 41;
             this.groupAutoboot.TabStop = false;
-            this.groupAutoboot.Visible = false;
             // 
             // btnEdit
             // 
@@ -456,10 +455,10 @@
             this.lbBootTime.Text = "Starting Rocksmith in 0 seconds.";
             this.lbBootTime.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // tmrAuto
+            // tmrAutoBoot
             // 
-            this.tmrAuto.Interval = 1000;
-            this.tmrAuto.Tick += new System.EventHandler(this.tmrAuto_Tick);
+            this.tmrAutoBoot.Interval = 1000;
+            this.tmrAutoBoot.Tick += new System.EventHandler(this.AutoBoot);
             // 
             // chkDelAfter
             // 
@@ -602,7 +601,7 @@
         private System.Windows.Forms.Button btnManage;
         private System.Windows.Forms.Button btnLaunch;
         private System.Windows.Forms.Label lbBootTime;
-        private System.Windows.Forms.Timer tmrAuto;
+        private System.Windows.Forms.Timer tmrAutoBoot;
         private System.Windows.Forms.CheckBox chkDelAfter;
     }
 }
