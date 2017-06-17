@@ -77,6 +77,7 @@
             this.cmFinish = new CommandLink();
             this.treeBackups = new VistaControls.ExplorerTreeview();
             this.btnBackupSettings = new VistaControls.SplitButton();
+            this.btnCheckID = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numBackups)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupAutoboot.SuspendLayout();
@@ -507,11 +508,22 @@
             this.btnBackupSettings.DropDown_Clicked += new VistaControls.DropDownClicked(this.btnBackupSettings_DropDown_Clicked);
             this.btnBackupSettings.Click += new System.EventHandler(this.btnBackupSettings_Click);
             // 
+            // btnCheckID
+            // 
+            this.btnCheckID.Location = new System.Drawing.Point(470, 50);
+            this.btnCheckID.Name = "btnCheckID";
+            this.btnCheckID.Size = new System.Drawing.Size(54, 24);
+            this.btnCheckID.TabIndex = 43;
+            this.btnCheckID.Text = "Check";
+            this.btnCheckID.UseVisualStyleBackColor = true;
+            this.btnCheckID.Click += new System.EventHandler(this.btnCheckID_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 330);
+            this.ClientSize = new System.Drawing.Size(732, 330);
+            this.Controls.Add(this.btnCheckID);
             this.Controls.Add(this.chkDelAfter);
             this.Controls.Add(this.groupAutoboot);
             this.Controls.Add(this.cmFinish);
@@ -603,5 +615,6 @@
         private System.Windows.Forms.Label lbBootTime;
         private System.Windows.Forms.Timer tmrAutoBoot;
         private System.Windows.Forms.CheckBox chkDelAfter;
+        private System.Windows.Forms.Button btnCheckID;
     }
 }

@@ -501,6 +501,37 @@ namespace Rocksmith2014Backup
             txtSender.Text = Regex.Replace(txtSender.Text, "[^0-9]", "");
             txtSender.SelectionStart = curPos;
         }
+        private void btnCheckID_Click(object sender, EventArgs e)
+        {
+            retryIDCheck:
+            if (txtSteamPath.Text == "")
+            {
+                MessageBox.Show("Please specify a Steam directory below before trying to check your Steam3 ID.", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
+                return;
+            }
+            if (txtID.Text != "")
+            {
+                if (Directory.Exists(txtSteamPath.Text + "\\userdata\\" + txtID.Text + "\\221680\\remote"))
+                {
+                    if (Directory.EnumerateFileSystemEntries(txtSteamPath.Text + "\\userdata\\" + txtID.Text +"\\221680\\remote").Any())
+                    {
+                        MessageBox.Show("Steam3 ID \"" + txtID.Text + "\" has Rocksmith 2014 save files present.", "Rocksmith 2014 Backup", MessageBoxButtons.OK);
+                    }else{
+                        switch (MessageBox.Show("Steam3 ID \"" + txtID.Text + "\" does not have Rocksmith 2014 saves present.", "Rocksmith 2014 Backup", MessageBoxButtons.RetryCancel))
+                        {
+                            case System.Windows.Forms.DialogResult.Retry:
+                                goto retryIDCheck;
+                        }
+                    }
+                } else {
+                    switch (MessageBox.Show("Steam3 ID \"" + txtID.Text + "\" is not a local profile for Steam.", "Rocksmith 2014 Backup", MessageBoxButtons.RetryCancel))
+                    {
+                        case System.Windows.Forms.DialogResult.Retry:
+                            goto retryIDCheck;
+                    }
+                }
+            }
+        }
         private void btnBrowseSteam_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog { RootFolder = Environment.SpecialFolder.CommonProgramFiles, Description = "Select your Steam installation directory." };
@@ -622,5 +653,6 @@ namespace Rocksmith2014Backup
             DeleteSelectedBackup();
         }
         #endregion
+
     }
 }
