@@ -62,8 +62,8 @@
             this.labelAbout.Name = "labelAbout";
             this.labelAbout.Size = new System.Drawing.Size(225, 65);
             this.labelAbout.TabIndex = 10;
-            this.labelAbout.Text = "Rocksmith 2014 Backup\r\nDeveloped by Matty (ecaep42)\r\nLicensed under GNU GPLv3\r\n\r\n" +
-    "Application source code is available at Github.";
+            this.labelAbout.Text = "Rocksmith 2014 Backup\r\nDeveloped by Matty (obscurename)\r\nLicensed under GNU GPLv3" +
+    "\r\n\r\nApplication source code is available at Github.";
             this.labelAbout.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // AboutForm
