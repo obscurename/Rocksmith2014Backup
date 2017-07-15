@@ -35,12 +35,12 @@ namespace Rocksmith2014Backup
         {
             if (Properties.Settings.Default.FirstTimeSetup == true)
             {
-                Directory.CreateDirectory(Properties.Settings.Default.BackupDir);
                 // First time setup.
                 switch (MessageBox.Show("It appears you've launched this program for the first time. Would you like to automatically detect settings?", "Rocksmith 2014 Backup", MessageBoxButtons.YesNoCancel))
                 {
                     case System.Windows.Forms.DialogResult.Yes:
                         DetectSettings();
+                        SaveSettings();
                         break;
                     case System.Windows.Forms.DialogResult.Cancel:
                         Environment.Exit(0);
@@ -51,7 +51,15 @@ namespace Rocksmith2014Backup
                 this.Size = new Size(740, 360);
                 this.Opacity = 100;
             }
-            else
+            else if (Properties.Settings.Default.IdleMode == true)
+            {
+                lbBootTime.Text = "Idle mode enabled";
+                btnLaunch.Text = "Play game";
+                niTray.Visible = true;
+                this.WindowState = FormWindowState.Minimized;
+                this.Opacity = 100;
+            }
+            else if(Properties.Settings.Default.AutoBoot == true && Properties.Settings.Default.IdleMode == false)
             {
                 if (File.Exists(Application.StartupPath + "\\skipdelay.txt"))
                 {
@@ -59,8 +67,9 @@ namespace Rocksmith2014Backup
                 }
                 else
                 {
+                    groupAutoboot.Visible = true;
                     Boot = Properties.Settings.Default.BootDelay;
-                    lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds.";
+                    lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds";
                     this.Opacity = 100;
                 }
                 if (!Properties.Settings.Default.AutoBoot == true)
@@ -120,6 +129,7 @@ namespace Rocksmith2014Backup
                 Properties.Settings.Default.Save();
             }
             chkDelAfter.Checked = Properties.Settings.Default.DeleteAfterRestore;
+            chkIdle.Checked = Properties.Settings.Default.IdleMode;
         }
         private void SaveSettings()
         {
@@ -167,9 +177,8 @@ namespace Rocksmith2014Backup
                 Properties.Settings.Default.BackupsToKeep = Convert.ToInt32(numBackups.Value);
             }
 
-            if (chkAutoBoot.Checked = true & Properties.Settings.Default.AutoBoot != true)
+            if (chkAutoBoot.Checked == true)
             {
-                Properties.Settings.Default.AutoBoot = true;
                 if (rbDelay5.Checked)
                 {
                     Properties.Settings.Default.BootDelay = 5;
@@ -182,25 +191,35 @@ namespace Rocksmith2014Backup
                 {
                     Properties.Settings.Default.BootDelay = 5;
                 }
-            }
-            else if (chkAutoBoot.Checked = false & Properties.Settings.Default.AutoBoot != false)
-            {
-                Properties.Settings.Default.AutoBoot = false;
+            }else{
                 Properties.Settings.Default.BootDelay = 5;
             }
 
-            if (chkDelAfter.Checked == true & Properties.Settings.Default.DeleteAfterRestore != true)
+            Properties.Settings.Default.AutoBoot = chkAutoBoot.Checked;
+            Properties.Settings.Default.DeleteAfterRestore = chkDelAfter.Checked;
+
+            if (chkIdle.Checked == true)
             {
-                Properties.Settings.Default.DeleteAfterRestore = true;
+                niTray.Visible = true;
             }
-            else if (chkDelAfter.Checked == false & Properties.Settings.Default.DeleteAfterRestore != false)
-            {
-                Properties.Settings.Default.DeleteAfterRestore = false;
-            }
+            Properties.Settings.Default.IdleMode = chkIdle.Checked;
 
             Properties.Settings.Default.Save();
             this.Size = new Size(this.MinimumSize.Width, this.MinimumSize.Height);
             SettingsShown = false;
+        }
+        private void ResetSettings()
+        {
+            Properties.Settings.Default.FirstTimeSetup = true;
+            Properties.Settings.Default.AutoBoot = false;
+            Properties.Settings.Default.BootDelay = 5;
+            Properties.Settings.Default.BackupsToKeep = 10;
+            Properties.Settings.Default.SteamID = 0;
+            Properties.Settings.Default.SteamInstallDir = "C:\\Program Files (x86)\\Steam";
+            Properties.Settings.Default.BackupDir = "C:\\Games\\Rocksmith 2014 Backup";
+            Properties.Settings.Default.DeleteAfterRestore = false;
+            Properties.Settings.Default.IdleMode = false;
+            Properties.Settings.Default.Save();
         }
         private void DetectSettings()
         {
@@ -259,6 +278,13 @@ namespace Rocksmith2014Backup
                             txtBackupPath.Text = fbd.SelectedPath;
                             break;
                     }
+                    break;
+                case System.Windows.Forms.DialogResult.No:
+                    if (!Directory.Exists(Properties.Settings.Default.BackupDir))
+                    {
+                        Directory.CreateDirectory(Properties.Settings.Default.BackupDir);
+                    }
+
                     break;
             }
         }
@@ -422,7 +448,7 @@ namespace Rocksmith2014Backup
             if (Boot > 0)
             {
                 Boot -= 1;
-                lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds.";
+                lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds";
             }
             else
             {
@@ -458,6 +484,7 @@ namespace Rocksmith2014Backup
         }
         private void btnLaunchGame_Click(object sender, EventArgs e)
         {
+            MakeBackup();
             LaunchGame();
         }
         private void btnAbout_Click(object sender, EventArgs e)
@@ -592,6 +619,22 @@ namespace Rocksmith2014Backup
             }
             SaveSettings();
         }
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.ResetDebug == true)
+            {
+                ResetSettings();
+                Environment.Exit(0);
+                return;
+            }
+            switch (MessageBox.Show("Really reset settings to default? Application will exit", "Rocksmith 2014 Backup", MessageBoxButtons.YesNo))
+            {
+                case System.Windows.Forms.DialogResult.Yes:
+                    ResetSettings();
+                    Application.Restart();
+                    break;
+            }
+        }
         #endregion
 
         #region AutoBoot Options
@@ -654,5 +697,24 @@ namespace Rocksmith2014Backup
         }
         #endregion
 
+        #region Idle-Mode
+        private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.IdleMode == false)
+            {
+                return;
+            }
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                niTray.ShowBalloonTip(5000);
+            }
+        }
+        #endregion
     }
 }

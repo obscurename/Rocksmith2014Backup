@@ -20,7 +20,7 @@ namespace Rocksmith2014Backup.Forms
 
         private void toGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/obscurename/RocksmithBackup");
+            Process.Start("https://github.com/ecaep42/RocksmithBackup");
         }
 
         private void btnClose_Click(object sender, EventArgs e)

@@ -74,10 +74,13 @@
             this.lbBootTime = new System.Windows.Forms.Label();
             this.tmrAutoBoot = new System.Windows.Forms.Timer(this.components);
             this.chkDelAfter = new System.Windows.Forms.CheckBox();
+            this.btnCheckID = new System.Windows.Forms.Button();
+            this.chkIdle = new System.Windows.Forms.CheckBox();
+            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.btnReset = new System.Windows.Forms.Button();
             this.cmFinish = new CommandLink();
             this.treeBackups = new VistaControls.ExplorerTreeview();
             this.btnBackupSettings = new VistaControls.SplitButton();
-            this.btnCheckID = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numBackups)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupAutoboot.SuspendLayout();
@@ -415,6 +418,7 @@
             this.groupAutoboot.Size = new System.Drawing.Size(258, 99);
             this.groupAutoboot.TabIndex = 41;
             this.groupAutoboot.TabStop = false;
+            this.groupAutoboot.Visible = false;
             // 
             // btnEdit
             // 
@@ -453,7 +457,7 @@
             this.lbBootTime.Name = "lbBootTime";
             this.lbBootTime.Size = new System.Drawing.Size(214, 22);
             this.lbBootTime.TabIndex = 0;
-            this.lbBootTime.Text = "Starting Rocksmith in 0 seconds.";
+            this.lbBootTime.Text = "Starting Rocksmith in 0 seconds";
             this.lbBootTime.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tmrAutoBoot
@@ -464,12 +468,51 @@
             // chkDelAfter
             // 
             this.chkDelAfter.AutoSize = true;
-            this.chkDelAfter.Location = new System.Drawing.Point(555, 34);
+            this.chkDelAfter.Location = new System.Drawing.Point(593, 31);
             this.chkDelAfter.Name = "chkDelAfter";
             this.chkDelAfter.Size = new System.Drawing.Size(121, 17);
             this.chkDelAfter.TabIndex = 42;
             this.chkDelAfter.Text = "Delete After Restore";
             this.chkDelAfter.UseVisualStyleBackColor = true;
+            // 
+            // btnCheckID
+            // 
+            this.btnCheckID.Location = new System.Drawing.Point(470, 50);
+            this.btnCheckID.Name = "btnCheckID";
+            this.btnCheckID.Size = new System.Drawing.Size(54, 24);
+            this.btnCheckID.TabIndex = 43;
+            this.btnCheckID.Text = "Check";
+            this.btnCheckID.UseVisualStyleBackColor = true;
+            this.btnCheckID.Click += new System.EventHandler(this.btnCheckID_Click);
+            // 
+            // chkIdle
+            // 
+            this.chkIdle.AutoSize = true;
+            this.chkIdle.Location = new System.Drawing.Point(593, 54);
+            this.chkIdle.Name = "chkIdle";
+            this.chkIdle.Size = new System.Drawing.Size(72, 17);
+            this.chkIdle.TabIndex = 44;
+            this.chkIdle.Text = "Idle Mode";
+            this.chkIdle.UseVisualStyleBackColor = true;
+            // 
+            // niTray
+            // 
+            this.niTray.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.niTray.BalloonTipText = "Double-click this icon to return to the program.";
+            this.niTray.BalloonTipTitle = "Rocksmith 2014 Backup - Idle Mode";
+            this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
+            this.niTray.Text = "Rocksmith 2014 Backup";
+            this.niTray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.niTray_MouseDoubleClick);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(642, 302);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(87, 23);
+            this.btnReset.TabIndex = 45;
+            this.btnReset.Text = "Reset Settings";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // cmFinish
             // 
@@ -508,21 +551,13 @@
             this.btnBackupSettings.DropDown_Clicked += new VistaControls.DropDownClicked(this.btnBackupSettings_DropDown_Clicked);
             this.btnBackupSettings.Click += new System.EventHandler(this.btnBackupSettings_Click);
             // 
-            // btnCheckID
-            // 
-            this.btnCheckID.Location = new System.Drawing.Point(470, 50);
-            this.btnCheckID.Name = "btnCheckID";
-            this.btnCheckID.Size = new System.Drawing.Size(54, 24);
-            this.btnCheckID.TabIndex = 43;
-            this.btnCheckID.Text = "Check";
-            this.btnCheckID.UseVisualStyleBackColor = true;
-            this.btnCheckID.Click += new System.EventHandler(this.btnCheckID_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 330);
+            this.ClientSize = new System.Drawing.Size(282, 330);
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.chkIdle);
             this.Controls.Add(this.btnCheckID);
             this.Controls.Add(this.chkDelAfter);
             this.Controls.Add(this.groupAutoboot);
@@ -557,6 +592,7 @@
             this.Text = "Rocksmith 2014 Backup";
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numBackups)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -616,5 +652,8 @@
         private System.Windows.Forms.Timer tmrAutoBoot;
         private System.Windows.Forms.CheckBox chkDelAfter;
         private System.Windows.Forms.Button btnCheckID;
+        private System.Windows.Forms.CheckBox chkIdle;
+        private System.Windows.Forms.NotifyIcon niTray;
+        private System.Windows.Forms.Button btnReset;
     }
 }
