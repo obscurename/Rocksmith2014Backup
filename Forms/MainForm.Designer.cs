@@ -81,6 +81,11 @@
             this.cmFinish = new CommandLink();
             this.treeBackups = new VistaControls.ExplorerTreeview();
             this.btnBackupSettings = new VistaControls.SplitButton();
+            this.trayMenu = new System.Windows.Forms.ContextMenu();
+            this.mShow = new System.Windows.Forms.MenuItem();
+            this.mSep = new System.Windows.Forms.MenuItem();
+            this.mExit = new System.Windows.Forms.MenuItem();
+            this.mRun = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numBackups)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupAutoboot.SuspendLayout();
@@ -551,6 +556,37 @@
             this.btnBackupSettings.DropDown_Clicked += new VistaControls.DropDownClicked(this.btnBackupSettings_DropDown_Clicked);
             this.btnBackupSettings.Click += new System.EventHandler(this.btnBackupSettings_Click);
             // 
+            // trayMenu
+            // 
+            this.trayMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mShow,
+            this.mRun,
+            this.mSep,
+            this.mExit});
+            // 
+            // mShow
+            // 
+            this.mShow.Index = 0;
+            this.mShow.Text = "Show";
+            this.mShow.Click += new System.EventHandler(this.mShow_Click);
+            // 
+            // mSep
+            // 
+            this.mSep.Index = 2;
+            this.mSep.Text = "-";
+            // 
+            // mExit
+            // 
+            this.mExit.Index = 3;
+            this.mExit.Text = "Exit";
+            this.mExit.Click += new System.EventHandler(this.mExit_Click);
+            // 
+            // mRun
+            // 
+            this.mRun.Index = 1;
+            this.mRun.Text = "Run Rocksmith 2014";
+            this.mRun.Click += new System.EventHandler(this.mRun_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -655,5 +691,10 @@
         private System.Windows.Forms.CheckBox chkIdle;
         private System.Windows.Forms.NotifyIcon niTray;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.ContextMenu trayMenu;
+        private System.Windows.Forms.MenuItem mShow;
+        private System.Windows.Forms.MenuItem mRun;
+        private System.Windows.Forms.MenuItem mSep;
+        private System.Windows.Forms.MenuItem mExit;
     }
 }

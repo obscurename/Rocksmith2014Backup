@@ -82,6 +82,7 @@ namespace Rocksmith2014Backup
                 }
             }
             treeBackups.ContextMenu = cmTreeview;
+            niTray.ContextMenu = trayMenu;
             ReloadBackups();
             LoadSettings();
         }
@@ -698,11 +699,6 @@ namespace Rocksmith2014Backup
         #endregion
 
         #region Idle-Mode
-        private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-        }
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.IdleMode == false)
@@ -714,6 +710,26 @@ namespace Rocksmith2014Backup
                 this.Hide();
                 niTray.ShowBalloonTip(5000);
             }
+        }
+        private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void mShow_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.Show();
+        }
+        private void mRun_Click(object sender, EventArgs e)
+        {
+            MakeBackup();
+            LaunchGame();
+        }
+        private void mExit_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
         }
         #endregion
     }
