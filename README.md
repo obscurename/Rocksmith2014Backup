@@ -10,6 +10,9 @@ On initial startup, it will attempt to figure out the save file location (using 
 
 If you want to skip the Autoboot Delay, create a new text file in the same directory named "skipdelay.txt".
 
+# Idle mode
+This mode lets you rack in hours on Rocksmith 2014. I only added it as I work offline most the time and wanted to regain hours I've lost.
+
 # FAQ
 
 Q: Why Steam only?  
