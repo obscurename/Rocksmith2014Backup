@@ -50,7 +50,6 @@ namespace Rocksmith2014Backup
                 btnSettings.Text = "Hide Settings";
                 cbExec.SelectedIndex = 0;
                 this.Size = new Size(740, 360);
-                this.Opacity = 100;
             }
             else if (Properties.Settings.Default.IdleMode == true)
             {
@@ -58,7 +57,6 @@ namespace Rocksmith2014Backup
                 btnLaunch.Text = "Play game";
                 niTray.Visible = true;
                 this.WindowState = FormWindowState.Minimized;
-                this.Opacity = 100;
             }
             else if(Properties.Settings.Default.AutoBoot == true && Properties.Settings.Default.IdleMode == false)
             {
@@ -71,21 +69,20 @@ namespace Rocksmith2014Backup
                     groupAutoboot.Visible = true;
                     Boot = Properties.Settings.Default.BootDelay;
                     lbBootTime.Text = "Starting Rocksmith in " + Boot.ToString() + " seconds";
-                    this.Opacity = 100;
                 }
-                if (!Properties.Settings.Default.AutoBoot == true)
-                {
-                    ToggleFormControls();
-                }
-                else
-                {
+                if (Properties.Settings.Default.AutoBoot == true)
                     tmrAutoBoot.Start();
-                }
             }
             treeBackups.ContextMenu = cmTreeview;
             niTray.ContextMenu = trayMenu;
             ReloadBackups();
             LoadSettings();
+
+            ToggleFormControls();
+            if (Properties.Settings.Default.AutoBoot == false)
+                lbBootTime.Visible = false;
+                groupAutoboot.Visible = false;
+            this.Opacity = 100;
         }
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
@@ -112,7 +109,7 @@ namespace Rocksmith2014Backup
             btnLaunchGame.Enabled ^= true;
             btnAbout.Enabled ^= true;
             treeBackups.Enabled ^= true;
-            groupAutoboot.Visible ^= true;
+            // groupAutoboot.Visible ^= true;
         }
         #endregion
 
