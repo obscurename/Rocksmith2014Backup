@@ -83,9 +83,11 @@
             this.btnBackupSettings = new VistaControls.SplitButton();
             this.trayMenu = new System.Windows.Forms.ContextMenu();
             this.mShow = new System.Windows.Forms.MenuItem();
+            this.mRun = new System.Windows.Forms.MenuItem();
             this.mSep = new System.Windows.Forms.MenuItem();
             this.mExit = new System.Windows.Forms.MenuItem();
-            this.mRun = new System.Windows.Forms.MenuItem();
+            this.cbExec = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numBackups)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupAutoboot.SuspendLayout();
@@ -186,7 +188,7 @@
             // btnAbout
             // 
             this.btnAbout.Enabled = false;
-            this.btnAbout.Location = new System.Drawing.Point(215, 300);
+            this.btnAbout.Location = new System.Drawing.Point(214, 297);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(58, 24);
             this.btnAbout.TabIndex = 21;
@@ -197,7 +199,7 @@
             // btnSettings
             // 
             this.btnSettings.Enabled = false;
-            this.btnSettings.Location = new System.Drawing.Point(189, 271);
+            this.btnSettings.Location = new System.Drawing.Point(188, 268);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(84, 24);
             this.btnSettings.TabIndex = 20;
@@ -208,16 +210,16 @@
             // labelBackups
             // 
             this.labelBackups.AutoSize = true;
-            this.labelBackups.Location = new System.Drawing.Point(9, 8);
+            this.labelBackups.Location = new System.Drawing.Point(4, 5);
             this.labelBackups.Name = "labelBackups";
-            this.labelBackups.Size = new System.Drawing.Size(98, 13);
+            this.labelBackups.Size = new System.Drawing.Size(92, 13);
             this.labelBackups.TabIndex = 19;
-            this.labelBackups.Text = "Available Backups:";
+            this.labelBackups.Text = "Created Backups:";
             // 
             // btnLaunchGame
             // 
             this.btnLaunchGame.Enabled = false;
-            this.btnLaunchGame.Location = new System.Drawing.Point(18, 300);
+            this.btnLaunchGame.Location = new System.Drawing.Point(12, 297);
             this.btnLaunchGame.Name = "btnLaunchGame";
             this.btnLaunchGame.Size = new System.Drawing.Size(134, 24);
             this.btnLaunchGame.TabIndex = 25;
@@ -229,7 +231,7 @@
             // 
             this.labelSettings.AutoSize = true;
             this.labelSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSettings.Location = new System.Drawing.Point(297, 9);
+            this.labelSettings.Location = new System.Drawing.Point(292, 7);
             this.labelSettings.Name = "labelSettings";
             this.labelSettings.Size = new System.Drawing.Size(68, 20);
             this.labelSettings.TabIndex = 27;
@@ -246,7 +248,7 @@
             // 
             // btnBrowseBackup
             // 
-            this.btnBrowseBackup.Location = new System.Drawing.Point(573, 159);
+            this.btnBrowseBackup.Location = new System.Drawing.Point(564, 157);
             this.btnBrowseBackup.Name = "btnBrowseBackup";
             this.btnBrowseBackup.Size = new System.Drawing.Size(24, 23);
             this.btnBrowseBackup.TabIndex = 36;
@@ -256,7 +258,7 @@
             // 
             // txtBackupPath
             // 
-            this.txtBackupPath.Location = new System.Drawing.Point(333, 161);
+            this.txtBackupPath.Location = new System.Drawing.Point(324, 159);
             this.txtBackupPath.Name = "txtBackupPath";
             this.txtBackupPath.ReadOnly = true;
             this.txtBackupPath.Size = new System.Drawing.Size(235, 20);
@@ -265,7 +267,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(316, 143);
+            this.label5.Location = new System.Drawing.Point(307, 141);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 13);
             this.label5.TabIndex = 34;
@@ -273,7 +275,7 @@
             // 
             // btnBrowseSteam
             // 
-            this.btnBrowseSteam.Location = new System.Drawing.Point(573, 104);
+            this.btnBrowseSteam.Location = new System.Drawing.Point(564, 102);
             this.btnBrowseSteam.Name = "btnBrowseSteam";
             this.btnBrowseSteam.Size = new System.Drawing.Size(24, 23);
             this.btnBrowseSteam.TabIndex = 33;
@@ -283,7 +285,7 @@
             // 
             // txtSteamPath
             // 
-            this.txtSteamPath.Location = new System.Drawing.Point(333, 106);
+            this.txtSteamPath.Location = new System.Drawing.Point(324, 104);
             this.txtSteamPath.Name = "txtSteamPath";
             this.txtSteamPath.ReadOnly = true;
             this.txtSteamPath.Size = new System.Drawing.Size(235, 20);
@@ -292,7 +294,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(316, 88);
+            this.label4.Location = new System.Drawing.Point(307, 86);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 13);
             this.label4.TabIndex = 31;
@@ -300,7 +302,7 @@
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(364, 53);
+            this.txtID.Location = new System.Drawing.Point(355, 51);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(100, 20);
             this.txtID.TabIndex = 30;
@@ -310,7 +312,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(355, 35);
+            this.label3.Location = new System.Drawing.Point(346, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 28;
@@ -319,7 +321,7 @@
             // lnkSteam3
             // 
             this.lnkSteam3.AutoSize = true;
-            this.lnkSteam3.Location = new System.Drawing.Point(316, 35);
+            this.lnkSteam3.Location = new System.Drawing.Point(307, 33);
             this.lnkSteam3.Name = "lnkSteam3";
             this.lnkSteam3.Size = new System.Drawing.Size(43, 13);
             this.lnkSteam3.TabIndex = 29;
@@ -328,7 +330,7 @@
             // 
             // numBackups
             // 
-            this.numBackups.Location = new System.Drawing.Point(350, 197);
+            this.numBackups.Location = new System.Drawing.Point(341, 195);
             this.numBackups.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -347,7 +349,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(316, 200);
+            this.label7.Location = new System.Drawing.Point(307, 198);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(185, 65);
             this.label7.TabIndex = 37;
@@ -360,7 +362,7 @@
             this.groupBox1.Controls.Add(this.lbHelp);
             this.groupBox1.Controls.Add(this.rbDelay10);
             this.groupBox1.Controls.Add(this.chkAutoBoot);
-            this.groupBox1.Location = new System.Drawing.Point(507, 202);
+            this.groupBox1.Location = new System.Drawing.Point(498, 200);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(213, 67);
             this.groupBox1.TabIndex = 39;
@@ -373,7 +375,7 @@
             this.rbDelay5.Checked = true;
             this.rbDelay5.Location = new System.Drawing.Point(111, 42);
             this.rbDelay5.Name = "rbDelay5";
-            this.rbDelay5.Size = new System.Drawing.Size(96, 17);
+            this.rbDelay5.Size = new System.Drawing.Size(97, 17);
             this.rbDelay5.TabIndex = 19;
             this.rbDelay5.TabStop = true;
             this.rbDelay5.Text = "5 second delay";
@@ -395,7 +397,7 @@
             this.rbDelay10.AutoSize = true;
             this.rbDelay10.Location = new System.Drawing.Point(6, 42);
             this.rbDelay10.Name = "rbDelay10";
-            this.rbDelay10.Size = new System.Drawing.Size(102, 17);
+            this.rbDelay10.Size = new System.Drawing.Size(103, 17);
             this.rbDelay10.TabIndex = 16;
             this.rbDelay10.Text = "10 second delay";
             this.rbDelay10.UseVisualStyleBackColor = true;
@@ -407,7 +409,7 @@
             this.chkAutoBoot.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoBoot.Location = new System.Drawing.Point(48, 19);
             this.chkAutoBoot.Name = "chkAutoBoot";
-            this.chkAutoBoot.Size = new System.Drawing.Size(117, 17);
+            this.chkAutoBoot.Size = new System.Drawing.Size(118, 17);
             this.chkAutoBoot.TabIndex = 15;
             this.chkAutoBoot.Text = "Enable auto launch";
             this.chkAutoBoot.UseVisualStyleBackColor = true;
@@ -418,7 +420,7 @@
             this.groupAutoboot.Controls.Add(this.btnManage);
             this.groupAutoboot.Controls.Add(this.btnLaunch);
             this.groupAutoboot.Controls.Add(this.lbBootTime);
-            this.groupAutoboot.Location = new System.Drawing.Point(12, 116);
+            this.groupAutoboot.Location = new System.Drawing.Point(13, 116);
             this.groupAutoboot.Name = "groupAutoboot";
             this.groupAutoboot.Size = new System.Drawing.Size(258, 99);
             this.groupAutoboot.TabIndex = 41;
@@ -458,7 +460,7 @@
             // lbBootTime
             // 
             this.lbBootTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBootTime.Location = new System.Drawing.Point(22, 1);
+            this.lbBootTime.Location = new System.Drawing.Point(23, 1);
             this.lbBootTime.Name = "lbBootTime";
             this.lbBootTime.Size = new System.Drawing.Size(214, 22);
             this.lbBootTime.TabIndex = 0;
@@ -473,16 +475,16 @@
             // chkDelAfter
             // 
             this.chkDelAfter.AutoSize = true;
-            this.chkDelAfter.Location = new System.Drawing.Point(593, 31);
+            this.chkDelAfter.Location = new System.Drawing.Point(301, 275);
             this.chkDelAfter.Name = "chkDelAfter";
-            this.chkDelAfter.Size = new System.Drawing.Size(121, 17);
+            this.chkDelAfter.Size = new System.Drawing.Size(122, 17);
             this.chkDelAfter.TabIndex = 42;
             this.chkDelAfter.Text = "Delete After Restore";
             this.chkDelAfter.UseVisualStyleBackColor = true;
             // 
             // btnCheckID
             // 
-            this.btnCheckID.Location = new System.Drawing.Point(470, 50);
+            this.btnCheckID.Location = new System.Drawing.Point(461, 48);
             this.btnCheckID.Name = "btnCheckID";
             this.btnCheckID.Size = new System.Drawing.Size(54, 24);
             this.btnCheckID.TabIndex = 43;
@@ -493,9 +495,9 @@
             // chkIdle
             // 
             this.chkIdle.AutoSize = true;
-            this.chkIdle.Location = new System.Drawing.Point(593, 54);
+            this.chkIdle.Location = new System.Drawing.Point(301, 298);
             this.chkIdle.Name = "chkIdle";
-            this.chkIdle.Size = new System.Drawing.Size(72, 17);
+            this.chkIdle.Size = new System.Drawing.Size(73, 17);
             this.chkIdle.TabIndex = 44;
             this.chkIdle.Text = "Idle Mode";
             this.chkIdle.UseVisualStyleBackColor = true;
@@ -511,7 +513,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(642, 302);
+            this.btnReset.Location = new System.Drawing.Point(627, 296);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(87, 23);
             this.btnReset.TabIndex = 45;
@@ -522,7 +524,7 @@
             // cmFinish
             // 
             this.cmFinish.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmFinish.Location = new System.Drawing.Point(432, 274);
+            this.cmFinish.Location = new System.Drawing.Point(423, 271);
             this.cmFinish.Name = "cmFinish";
             this.cmFinish.Note = "Seems right to me.";
             this.cmFinish.Size = new System.Drawing.Size(150, 51);
@@ -535,10 +537,10 @@
             // 
             this.treeBackups.Enabled = false;
             this.treeBackups.HotTracking = true;
-            this.treeBackups.Location = new System.Drawing.Point(18, 27);
+            this.treeBackups.Location = new System.Drawing.Point(12, 23);
             this.treeBackups.Name = "treeBackups";
             this.treeBackups.ShowLines = false;
-            this.treeBackups.Size = new System.Drawing.Size(255, 239);
+            this.treeBackups.Size = new System.Drawing.Size(260, 239);
             this.treeBackups.TabIndex = 24;
             this.treeBackups.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeBackups_BeforeSelect);
             this.treeBackups.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeBackups_NodeMouseClick);
@@ -547,7 +549,7 @@
             // 
             this.btnBackupSettings.Enabled = false;
             this.btnBackupSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnBackupSettings.Location = new System.Drawing.Point(18, 271);
+            this.btnBackupSettings.Location = new System.Drawing.Point(12, 268);
             this.btnBackupSettings.Name = "btnBackupSettings";
             this.btnBackupSettings.Size = new System.Drawing.Size(70, 24);
             this.btnBackupSettings.TabIndex = 23;
@@ -570,6 +572,12 @@
             this.mShow.Text = "Show";
             this.mShow.Click += new System.EventHandler(this.mShow_Click);
             // 
+            // mRun
+            // 
+            this.mRun.Index = 1;
+            this.mRun.Text = "Run Rocksmith 2014";
+            this.mRun.Click += new System.EventHandler(this.mRun_Click);
+            // 
             // mSep
             // 
             this.mSep.Index = 2;
@@ -581,17 +589,34 @@
             this.mExit.Text = "Exit";
             this.mExit.Click += new System.EventHandler(this.mExit_Click);
             // 
-            // mRun
+            // cbExec
             // 
-            this.mRun.Index = 1;
-            this.mRun.Text = "Run Rocksmith 2014";
-            this.mRun.Click += new System.EventHandler(this.mRun_Click);
+            this.cbExec.FormattingEnabled = true;
+            this.cbExec.Items.AddRange(new object[] {
+            "Game.exe",
+            "Rocksmith.exe",
+            "RS2014.exe"});
+            this.cbExec.Location = new System.Drawing.Point(564, 48);
+            this.cbExec.Name = "cbExec";
+            this.cbExec.Size = new System.Drawing.Size(121, 21);
+            this.cbExec.TabIndex = 46;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(547, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Rocksmith Executable:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 330);
+            this.ClientSize = new System.Drawing.Size(284, 327);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbExec);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.chkIdle);
             this.Controls.Add(this.btnCheckID);
@@ -620,12 +645,13 @@
             this.Controls.Add(this.labelBackups);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(740, 360);
-            this.MinimumSize = new System.Drawing.Size(290, 360);
+            this.MaximumSize = new System.Drawing.Size(740, 365);
+            this.MinimumSize = new System.Drawing.Size(300, 365);
             this.Name = "MainForm";
             this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rocksmith 2014 Backup";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
@@ -696,5 +722,7 @@
         private System.Windows.Forms.MenuItem mRun;
         private System.Windows.Forms.MenuItem mSep;
         private System.Windows.Forms.MenuItem mExit;
+        private System.Windows.Forms.ComboBox cbExec;
+        private System.Windows.Forms.Label label1;
     }
 }

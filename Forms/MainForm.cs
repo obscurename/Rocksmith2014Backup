@@ -48,6 +48,7 @@ namespace Rocksmith2014Backup
                 }
                 // Expand settings for editing, and disable the backup buttons.
                 btnSettings.Text = "Hide Settings";
+                cbExec.SelectedIndex = 0;
                 this.Size = new Size(740, 360);
                 this.Opacity = 100;
             }
@@ -99,6 +100,11 @@ namespace Rocksmith2014Backup
                 SettingsShown = false;
             }
         }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (niTray.Visible)
+                niTray.Visible = false;
+        }
         private void ToggleFormControls()
         {
             btnBackupSettings.Enabled ^= true;
@@ -131,6 +137,15 @@ namespace Rocksmith2014Backup
             }
             chkDelAfter.Checked = Properties.Settings.Default.DeleteAfterRestore;
             chkIdle.Checked = Properties.Settings.Default.IdleMode;
+
+            if (Properties.Settings.Default.RsExec == "Game.exe")
+                cbExec.SelectedIndex = 0;
+            else if (Properties.Settings.Default.RsExec == "Rocksmith.exe")
+                cbExec.SelectedIndex = 1;
+            else if (Properties.Settings.Default.RsExec == "RS2014.exe")
+                cbExec.SelectedIndex = 2;
+            else
+                cbExec.Text = Properties.Settings.Default.RsExec;
         }
         private void SaveSettings()
         {
@@ -218,6 +233,7 @@ namespace Rocksmith2014Backup
             Properties.Settings.Default.SteamID = 0;
             Properties.Settings.Default.SteamInstallDir = "C:\\Program Files (x86)\\Steam";
             Properties.Settings.Default.BackupDir = "C:\\Games\\Rocksmith 2014 Backup";
+            Properties.Settings.Default.RsExec = "Game.exe";
             Properties.Settings.Default.DeleteAfterRestore = false;
             Properties.Settings.Default.IdleMode = false;
             Properties.Settings.Default.Save();
@@ -295,6 +311,9 @@ namespace Rocksmith2014Backup
             treeBackups.Nodes.Clear();
             treeBackups.Nodes.Add("RocksmithBackups", "Rocksmith Backups").Tag = "RootBackups";
 
+            if (!Directory.Exists(Properties.Settings.Default.BackupDir))
+                Directory.CreateDirectory(Properties.Settings.Default.BackupDir);
+
             if (Directory.EnumerateFileSystemEntries(Properties.Settings.Default.BackupDir).Any())
             {
                 foreach (string BackupMade in Directory.GetDirectories(Properties.Settings.Default.BackupDir))
@@ -338,6 +357,7 @@ namespace Rocksmith2014Backup
         }
         private void DeleteEarliestBackup()
         {
+            BackupsMade = 0;
             // If Backups to keep is set to 0, then just return.
             if (Properties.Settings.Default.BackupsToKeep == 0)
             {
@@ -420,26 +440,16 @@ namespace Rocksmith2014Backup
         {
             // All of this is self explanitory.
             retrylaunch:
-            if (File.Exists(Application.StartupPath + "\\Rocksmith.exe"))
-            {
-                Process.Start(Application.StartupPath + "\\Rocksmith.exe");
-                return;
-            }
-            else if (File.Exists(Application.StartupPath + "\\Game.exe"))
-            {
-                Process.Start(Application.StartupPath + "\\Game.exe");
-                return;
-            }
+            if (File.Exists(Application.StartupPath + "\\" + Properties.Settings.Default.RsExec))
+                Process.Start(Application.StartupPath + "\\" + Properties.Settings.Default.RsExec);
             else
-            {
-                switch (MessageBox.Show("Rocksmith 2014 was unable to be launched. Make sure you've renamed it to \"Rocksmith.exe\" or \"Game.exe\" to properly work.", "Rocksmith 2014 Backup", MessageBoxButtons.RetryCancel))
+                switch (MessageBox.Show("Rocksmith 2014 was unable to be launched. Make sure you've renamed it to " + Properties.Settings.Default.RsExec + " to properly work.", "Rocksmith 2014 Backup", MessageBoxButtons.RetryCancel))
                 {
                     case System.Windows.Forms.DialogResult.Retry:
                         goto retrylaunch;
                     case System.Windows.Forms.DialogResult.Cancel:
                         return;
                 }
-            }
         }
 
         // Except for this. This is the timer for autoboot.
@@ -729,8 +739,10 @@ namespace Rocksmith2014Backup
         }
         private void mExit_Click(object sender, EventArgs e)
         {
+            niTray.Visible = false;
             Environment.Exit(0);
         }
         #endregion
+
     }
 }
