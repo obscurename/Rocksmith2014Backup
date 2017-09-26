@@ -4,7 +4,7 @@ Backup Rocksmith 2014 Steam saves with this tool.
 Manage backups, restore from within the application, and the setup is about 98% more easier than before, instincively suggesting that the previous time setting it up was 1% easy which it was.
 
 # Setup
-Setup uses the "Rocksmith2014.exe" name for startup backup, so; rename the original "Rocksmith2014.exe" to "Rocksmith.exe" or "Game.exe". The former being the better idea.
+Setup uses the "Rocksmith2014.exe" name for startup backup, so; rename the original to either one of the 3 in the settings or a custom one (You must specify, if you rename it to "Vidyalol" you have to specify "Vidyalol.exe" in the settings.)
 
 On initial startup, it will attempt to figure out the save file location (using Registry). If you ues multiple profiles, it'll ask for you to intervene with the correct Steam3 ID, otherwise it should run properly.
 
